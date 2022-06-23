@@ -44,10 +44,10 @@ def err():
                 pass
             else:
                 for y in range(10, Variables.NumAA + 8):
-                    if lines[x][y] == 'A' or lines[x][y] == 'R' or lines[x][y] == 'N' or lines[x][y] == 'D' or lines[x][y] == 'C' or lines[x][y] == 'Q' or lines[x][y] == 'E' or lines[x][y] == 'G' or lines[x][y] == 'H' or lines[x][y] == 'I' or lines[x][y] == 'L' or lines[x][y] == 'K' or lines[x][y] == 'M' or lines[x][y] == 'F' or lines[x][y] == 'P' or lines[x][y] == 'S' or lines[x][y] == 'T' or lines[x][y] == 'W' or lines[x][y] == 'Y' or lines[x][y] == 'V' or lines[x][y] == '?' or lines[x][y] == '-' or lines[x][y] == 'X':
+                    if lines[x][y] == 'A' or lines[x][y] == 'R' or lines[x][y] == 'N' or lines[x][y] == 'D' or lines[x][y] == 'C' or lines[x][y] == 'Q' or lines[x][y] == 'E' or lines[x][y] == 'G' or lines[x][y] == 'H' or lines[x][y] == 'I' or lines[x][y] == 'L' or lines[x][y] == 'K' or lines[x][y] == 'M' or lines[x][y] == 'F' or lines[x][y] == 'P' or lines[x][y] == 'S' or lines[x][y] == 'T' or lines[x][y] == 'W' or lines[x][y] == 'Y' or lines[x][y] == 'V' or lines[x][y] == '-':
                         pass
                     else:
-                        print('Error in alignment file: ' + lines[x][y] + ' character was found in line ' + str(x) + ', position ' + str(y))
+                        print('Error in alignment file: ' + lines[x][y] + ' character was found in line ' + str(x+1) + ', position ' + str(y))
                         sys.exit('Error in alignment file: ' + lines[x][y] + ' character is not allow')
 
         #NumberOfSimulations
