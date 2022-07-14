@@ -1,0 +1,26 @@
+import os
+import Variables
+
+os.system("rm -r newalignment.fasta")
+os.system("rm -r ./Results")
+os.system("rm -r ./__pycache__")
+os.system("rm -r Local_interactions.dat")
+os.system("rm -r REM.txt")
+os.system("rm -r E_loc_0.txt")
+os.system("rm -r seqGMRCA")
+os.system("rm -r ProtModel_arguments.txt")
+os.system("rm -r ProtModel_S_arguments0.txt")
+os.system("rm -r ProtModel_S_arguments1.txt")
+os.system("rm -r Pop_evol.in")
+os.system("mkdir ABCOutputs")
+os.system("mkdir SimulationsOutputs")
+os.system("mv ABCAnalysis.r ABCOutputs/")
+os.system("cp PSimulations.txt ABCOutputs/")
+os.system("cp SSSimulations.csv ABCOutputs/")
+os.system("cp SSRealData.csv ABCOutputs/")
+os.system("mv PSimulations.txt SimulationsOutputs/")
+os.system("mv SSSimulations.csv SimulationsOutputs/")
+os.system("mv SSRealData.csv SimulationsOutputs/")
+
+os.system("mv launch_* SimulationsOutputs/")
+os.system("mv order.py SimulationsOutputs/")
