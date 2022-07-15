@@ -8,7 +8,7 @@ For more information about using *ProtModel*, a manual is [attached](https://git
 If you use *ProtModel*, please cite the following:
 
 ## Download
-
+Click here download the [computer](https://github.com/DavidFerreiro/ProtModel/tree/main/ProtModelv1.0/ProtModel) or [cluster](https://github.com/DavidFerreiro/ProtModel/tree/main/ProtModelv1.0/ProtModel_Cluster) version
 
 ## Install
 To install the DeltaGREM and ProteinEvolver frameworks you should simply run:
