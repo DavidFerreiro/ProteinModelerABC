@@ -1,0 +1,81 @@
+Model selection with abc - cross validation - based on 100 samples
+Confusion matrix based on 100 samples for each model.
+
+$tol0.01
+        Fitness HIVw Neutral
+Fitness      90    1       9
+HIVw          8   91       1
+Neutral       4    0      96
+
+
+Mean model posterior probabilities (rejection)
+
+$tol0.01
+        Fitness   HIVw Neutral
+Fitness  0.7868 0.0453  0.1679
+HIVw     0.0803 0.9004  0.0193
+Neutral  0.1432 0.0270  0.8298
+
+
+
+
+Model selection with abc - Real data
+Call: 
+postpr(target = FullRealmatrix, index = ModelsVector, sumstat = FullSSmatrix, 
+    tol = ABC_Tolerance, method = ABC_Method)
+Data:
+ postpr.out$values (30 posterior samples)
+Models a priori:
+ Fitness, HIVw, Neutral
+Models a posteriori:
+ Fitness, HIVw, Neutral
+
+Proportion of accepted simulations (rejection):
+Fitness    HIVw Neutral 
+ 0.3000  0.2667  0.4333 
+
+Bayes factors:
+        Fitness   HIVw Neutral
+Fitness  1.0000 1.1250  0.6923
+HIVw     0.8889 1.0000  0.6154
+Neutral  1.4444 1.6250  1.0000
+
+
+
+
+
+Goodness of fit of Real data
+
+   -Fitness:
+$pvalue
+[1] 0.02
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.400   4.629   4.872   5.657   5.579  19.465 
+
+$dist.obs
+[1] 15.08995
+
+   -HIVw:
+$pvalue
+[1] 0.04
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.106   4.450   4.799   6.024   5.853  34.957 
+
+$dist.obs
+[1] 17.18271
+
+   -Neutral:
+$pvalue
+[1] 0.02
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.862   4.214   4.462   5.518   4.996  38.579 
+
+$dist.obs
+[1] 13.71188
+
