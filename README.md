@@ -2,7 +2,7 @@
 *ProteinModelerABC* is a framework for selecting the best-fitting substitution model of evolution for protein alignments considering both empirical and structuraly constrained substitution models by approximate Bayesian computation. *ProteinModelerABC* can be run using the terminal or a graphical users interface in Linux or MacOS siystems or in clusters.
 
 ## Documentation
-For more information about using *ProtModel*, a manual is [attached](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Documentation).
+For more information about using *ProteinModelerABC*, a manual is [attached](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Documentation).
 
 ## Citation
 If you use *ProteinModelerABC*, please cite the following:
@@ -20,7 +20,7 @@ make all
 ```
 python3.9 ProteinModelerABC.py
 ```
-2. To run it using GUI you should click on the executable file or type::
+2. To run it using GUI you should click on the executable file or type:
 ```
 python3.9 ProteinModelerABC_GUI.py
 ```
