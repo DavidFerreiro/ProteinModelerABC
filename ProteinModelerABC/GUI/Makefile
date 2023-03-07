@@ -33,7 +33,6 @@ all:
 
 clean:
 	@echo "Removing executables ..."
-	$(MAKE) -C source/DeltaGREM_src clean
-	@rm -r Executables
+	@rm -r Executable
 	@echo "Done!"
 
