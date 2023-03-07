@@ -1,8 +1,8 @@
 ########################################################################
-# - Compile ProtModel -
+# - Compile ProteinModelerABC GUI -
 ########################################################################
 #
-PROGRAM_NAME = ProtModel
+PROGRAM_NAME = ProteinModelerABC
 
 
 help:
@@ -32,7 +32,7 @@ all:
 	
 
 clean:
-	@echo "Removing executables ..."
+	@echo "Removing executable ..."
 	@rm -r Executable
 	@echo "Done!"
 
