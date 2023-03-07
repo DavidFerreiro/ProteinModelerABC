@@ -8,7 +8,8 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 If you use *ProteinModelerABC*, please cite the following:
 
 ## Download
-Click here download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
+Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
+and here todownload the [Mac OSX GUI](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/GUI_executables/MacOS) or [Linux OS GUI](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/GUI_executables/Linux)
 
 ## Install
 To install the DeltaGREM and ProteinEvolver frameworks and compile the graphical user interface (GUI) you should simply run:
