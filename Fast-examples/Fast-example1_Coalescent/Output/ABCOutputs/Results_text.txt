@@ -1,0 +1,81 @@
+Model selection with abc - cross validation - based on 100 samples
+Confusion matrix based on 100 samples for each model.
+
+$tol0.01
+        Fitness JTT Neutral
+Fitness      81   0      19
+JTT           0  98       2
+Neutral       8   0      92
+
+
+Mean model posterior probabilities (rejection)
+
+$tol0.01
+        Fitness    JTT Neutral
+Fitness  0.7638 0.0067  0.2296
+JTT      0.0093 0.9757  0.0150
+Neutral  0.2009 0.0067  0.7925
+
+
+
+
+Model selection with abc - Real data
+Call: 
+postpr(target = FullRealmatrix, index = ModelsVector, sumstat = FullSSmatrix, 
+    tol = ABC_Tolerance, method = ABC_Method)
+Data:
+ postpr.out$values (30 posterior samples)
+Models a priori:
+ Fitness, JTT, Neutral
+Models a posteriori:
+ Fitness, JTT, Neutral
+
+Proportion of accepted simulations (rejection):
+Fitness     JTT Neutral 
+ 0.2333  0.0667  0.7000 
+
+Bayes factors:
+        Fitness     JTT Neutral
+Fitness  1.0000  3.5000  0.3333
+JTT      0.2857  1.0000  0.0952
+Neutral  3.0000 10.5000  1.0000
+
+
+
+
+
+Goodness of fit of Real data
+
+   -Fitness:
+$pvalue
+[1] 0.05
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.290   3.691   4.020   4.722   4.740  17.856 
+
+$dist.obs
+[1] 8.266633
+
+   -JTT:
+$pvalue
+[1] 0.05
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.813   4.372   4.659   6.242   5.735  25.903 
+
+$dist.obs
+[1] 15.75085
+
+   -Neutral:
+$pvalue
+[1] 0.06
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.221   3.618   3.961   4.725   4.703  16.852 
+
+$dist.obs
+[1] 8.838833
+
