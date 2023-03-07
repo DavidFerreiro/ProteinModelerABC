@@ -1,5 +1,5 @@
 # *ProteinModelerABC*
-*ProteinModelerABC* is a framework for selecting the best-fitting substitution model of evolution for protein alignments considering both empirical and structuraly constrained substitution models by approximate Bayesian computation. *ProteinModelerABC* can be run using the terminal or a graphical users interface in Linux or MacOS siystems or in clusters.
+*ProteinModelerABC* is an evolutionary framework to estimate the best-fitting substitution model of protein evolution, among a set of complex substitution models that cannot be accommodated in likelihood functions, with approximate Bayesian computation (ABC). *ProteinModelerABC* can be run using the terminal or a graphical users interface in LinuxOS or MacOS siystems or in computer clusters based on LinuxOS.
 
 ## Documentation
 For more information about using *ProteinModelerABC*, a manual is [attached](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Documentation).
