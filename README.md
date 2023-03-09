@@ -4,9 +4,6 @@
 ## Documentation
 For more information about using *ProteinModelerABC*, a manual is [attached](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Documentation).
 
-## Citation
-If you use *ProteinModelerABC*, please cite the following:
-
 ## Download
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
@@ -15,6 +12,26 @@ To install the DeltaGREM and ProteinEvolver frameworks and compile the graphical
 ```
 make all
 ```
+Next, Python3, R and some libraries and modules have to be installed:
+|Name	Language	Version|
+|---------------|---------------|---------------|
+|abc	R	|All|
+|os	Python	|All|
+|sys	Python	|All|
+|Biopython	Python	1All|
+|random	Python	|All|
+|numpy	Python	|All|
+|warnings	Python	|All|
+|pandas	Python	|All|
+|csv	Python	|All|
+|multiprocessing	Python	|Command line and GUI|
+|re	Python	|All|
+|platform	Python	|All|
+|mpi4py	Python	|Cluster|
+|threading	Python	|GUI|
+|tkinter	Python	|GUI|
+|time	|Python	|GUI|
+
 ## Execute
 1. To run it on command line you should type:
 ```
