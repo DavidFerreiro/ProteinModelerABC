@@ -8,7 +8,7 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
 ## Install
-To install the DeltaGREM and ProteinEvolver frameworks and compile the graphical user interface (GUI) you should simply run:
+To compile the program, including the graphical user interface (GUI), type:
 ```
 make all
 ```
