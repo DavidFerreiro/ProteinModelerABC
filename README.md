@@ -16,21 +16,21 @@ Next, Python3, R and some libraries and modules have to be installed:
 
 |Name	|Language	|Version|
 |---------------|---------------|---------------|
-|abc	R	|All|
-|os	Python	|All|
-|sys	Python	|All|
-|Biopython	Python	1All|
-|random	Python	|All|
-|numpy	Python	|All|
-|warnings	Python	|All|
-|pandas	Python	|All|
-|csv	Python	|All|
-|multiprocessing	Python	|Command line and GUI|
-|re	Python	|All|
-|platform	Python	|All|
-|mpi4py	Python	|Cluster|
-|threading	Python	|GUI|
-|tkinter	Python	|GUI|
+|abc	|R	|All|
+|os	|Python	|All|
+|sys	|Python	|All|
+|Biopython	|Python	|All|
+|random	|Python	|All|
+|numpy	|Python	|All|
+|warnings	|Python	|All|
+|pandas	|Python	|All|
+|csv	|Python	|All|
+|multiprocessing	|Python	|Command line and GUI|
+|re	|Python	|All|
+|platform	|Python	|All|
+|mpi4py	|Python	|Cluster|
+|threading	|Python	|GUI|
+|tkinter	|Python	|GUI|
 |time	|Python	|GUI|
 
 ## Execute
