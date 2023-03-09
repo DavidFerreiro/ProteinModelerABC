@@ -14,7 +14,7 @@ make all
 ```
 Next, Python3, R and some libraries and modules have to be installed:
 
-|Name	Language	Version|
+|Name	|Language	|Version|
 |---------------|---------------|---------------|
 |abc	R	|All|
 |os	Python	|All|
