@@ -21,8 +21,8 @@ all:
 	@mkdir Executable
 	@echo "Done!"
 	@echo "Creating ProteinModelerABC GUI executable ..."
-	@pip install pyinstaller
-	@pyinstaller --onefile -w --add-data "Mini.png:." --add-data "Splash.png:."  ProteinModelerABC_GUI.py
+	@pip3 install pyinstaller
+	@python3 -m PyInstaller --onefile -w --add-data "Mini.png:." --add-data "Splash.png:."  ProteinModelerABC_GUI.py
 ifeq ($(OS),Darwin)
 	cp -r ./dist/ProteinModelerABC_GUI.app ./Executable 
 else
