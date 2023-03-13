@@ -31,7 +31,6 @@ endif
 	@rm -r dist
 	@rm -r build
 	@rm ProteinModelerABC_GUI.spec
-	@rm -r __pycache__
 	@echo "Compilation completed!"
 	@echo ""
 	
