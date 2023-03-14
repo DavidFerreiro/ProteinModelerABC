@@ -8,11 +8,16 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
 ## Install
-To compile the program, including the graphical user interface (GUI), type:
+To compile the program go to the main directory and type:
 ```
-make all
+make instal
 ```
-Some libraries and modules have to be installed:
+To compile the GUI go to the main directory and type:
+```
+make GUI
+```
+*(Note that the GUI compilation may fail using some Python versions)*
+Automatically, some Python modules are installed but the user must install the abc R package and the Cluster modules if desire:
 
 |Name	|Language	|Version|
 |---------------|---------------|---------------|
@@ -33,7 +38,7 @@ Some libraries and modules have to be installed:
 |tkinter	|Python	|GUI|
 |time	|Python	|GUI|
 
-## Execute
+## Main command to execute
 1. To run it on command line you should type:
 ```
 python3.9 ProteinModelerABC.py
@@ -50,5 +55,29 @@ And next execute "*launch_Simu.sh*" file:
 ```
 sbatch launch_Simu.sh
 ```
+## Fast examples ready to be run
+The [Fast-examples] [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast-Examples) are almost ready to be run. The user should go to the directory and:
+```
+make instal
+```
+Next, the user must execute the framework typing:
+```
+python3.9 ProteinModelerABC_GUI.py
+```
+*(Note that the Settings.txt file is filled with no-biological meaning information)*
+
+
+If the user prefers running the GUI must type:
+```
+make instal
+make GUI
+```
+Next, the user must execute the GUI:
+```
+1. Going to the Executable folder and cliking into the executable file or
+2. python3.9 ProteinModelerABC_GUI.py
+```
+*(Note that the Settings.txt will be filled by the user)*
+
 ## Disclaimer
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version (at your option) of the License. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place – Suite 330, Boston, MA 02111-1307, USA.
