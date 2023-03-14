@@ -65,8 +65,8 @@ make install-GUI
 ```
 Next, the user must execute the GUI:
 ```
-1. Going to the "Executable" folder and cliking into the executable file or
-
+1. Going to the "Executable" folder and cliking into the executable file 
+   or
 2. cd GUI/
    python3 ProteinModelerABC_GUI.py
 ```
