@@ -14,7 +14,7 @@ make install
 ```
 To compile the GUI go to the main directory and type:
 ```
-make GUI
+make install-GUI
 ```
 *(Note that the GUI compilation may fail using some Python versions)*
 
@@ -23,21 +23,11 @@ Automatically, some Python libraries are installed but the user must install the
 |Name	|Language	|Version|
 |---------------|---------------|---------------|
 |abc	|R	|All|
-|os	|Python	|All|
-|sys	|Python	|All|
 |Biopython	|Python	|All|
-|random	|Python	|All|
 |numpy	|Python	|All|
-|warnings	|Python	|All|
 |pandas	|Python	|All|
-|csv	|Python	|All|
-|multiprocessing	|Python	|Command line and GUI|
-|re	|Python	|All|
-|platform	|Python	|All|
 |mpi4py	|Python	|Cluster|
-|threading	|Python	|GUI|
-|tkinter	|Python	|GUI|
-|time	|Python	|GUI|
+
 
 ## Main command to execute
 1. To run it on command line you should type:
@@ -71,7 +61,7 @@ python3.9 ProteinModelerABC_GUI.py
 If the user prefers running the GUI must type:
 ```
 make install
-make GUI
+make install-GUI
 ```
 Next, the user must execute the GUI:
 ```
