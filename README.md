@@ -29,7 +29,7 @@ Automatically, some Python libraries are installed but the user must install the
 |mpi4py	|Python	|Cluster|
 
 
-## Main command to execute
+## Main commands to execute
 1. To run it on command line you should type:
 ```
 python3 ProteinModelerABC.py
