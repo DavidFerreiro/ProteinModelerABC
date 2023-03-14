@@ -66,10 +66,10 @@ make install-GUI
 Next, the user must execute the GUI:
 
 1.
-``` 
+
 Going to the "Executable" folder and cliking into the executable file 
-```
-   or
+
+or
    
 2.
 ```
