@@ -17,6 +17,7 @@ To compile the GUI go to the main directory and type:
 make GUI
 ```
 *(Note that the GUI compilation may fail using some Python versions)*
+
 Automatically, some Python modules are installed but the user must install the abc R package and the Cluster modules if desire:
 
 |Name	|Language	|Version|
