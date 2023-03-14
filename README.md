@@ -69,7 +69,6 @@ Next, the user must execute the GUI:
 
 Going to the "Executable" folder and cliking into the executable file 
 
-or
    
 2.
 ```
