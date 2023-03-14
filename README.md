@@ -40,7 +40,7 @@ python3 ProteinModelerABC_GUI.py
 ```
 3. To run it on cluster you should type:
 ```
-python ProteinModelerABC_Cluster.py
+python3 ProteinModelerABC_Cluster.py
 ```
 And next execute "*launch_Simu.sh*" file:
 ```
