@@ -57,7 +57,7 @@ And next execute "*launch_Simu.sh*" file:
 sbatch launch_Simu.sh
 ```
 ## Fast examples ready to be run
-The [Fast-examples] [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast-Examples) are almost ready to be run. The user should go to the directory and:
+The [Fast-examples](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast-examples) are almost ready to be run. The user should go to the directory and:
 ```
 make instal
 ```
