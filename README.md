@@ -8,7 +8,7 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
 ## Install
-To compile the program go to the main directory and type:
+To compile the program go to the main directory (the one with the ".py" files of the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) versions and type:
 ```
 make install
 ```
@@ -47,7 +47,7 @@ And next execute "*launch_Simu.sh*" file:
 sbatch launch_Simu.sh
 ```
 ## Fast examples ready to be run on local computer
-The [first Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast-examples/Fast_example1_Coalescent) and the [second Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast-examples/Fast_example2_PhylogeneticTree) are almost ready to be run. The user should go to the directory and:
+The [first Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example1_Coalescent) and the [second Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example2_PhylogeneticTree) are almost ready to be run. The user should go to the directory and:
 ```
 make install
 ```
