@@ -8,7 +8,7 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
 ## Install
-To compile the program go to the main directory (which must contain all the necessary files of the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) versions) and type:
+To compile the program go to the main directory (which must contain all the executable files of the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) versions) and type:
 ```
 make install
 ```
