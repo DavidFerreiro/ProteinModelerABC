@@ -10,7 +10,7 @@ Click here to download the [computer](https://github.com/DavidFerreiro/ProteinMo
 ## Install
 To compile the program go to the main directory and type:
 ```
-make instal
+make install
 ```
 To compile the GUI go to the main directory and type:
 ```
@@ -59,7 +59,7 @@ sbatch launch_Simu.sh
 ## Fast examples ready to be run
 The [Fast-examples](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast-examples) are almost ready to be run. The user should go to the directory and:
 ```
-make instal
+make install
 ```
 Next, the user must execute the framework typing:
 ```
@@ -70,12 +70,12 @@ python3.9 ProteinModelerABC_GUI.py
 
 If the user prefers running the GUI must type:
 ```
-make instal
+make install
 make GUI
 ```
 Next, the user must execute the GUI:
 ```
-1. Going to the Executable folder and cliking into the executable file or
+1. Going to the *Executable* folder and cliking into the executable file or
 2. python3.9 ProteinModelerABC_GUI.py
 ```
 *(Note that the Settings.txt will be filled by the user)*
