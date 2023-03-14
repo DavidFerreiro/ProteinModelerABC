@@ -32,11 +32,11 @@ Automatically, some Python libraries are installed but the user must install the
 ## Main command to execute
 1. To run it on command line you should type:
 ```
-python3.9 ProteinModelerABC.py
+python3 ProteinModelerABC.py
 ```
 2. To run it using GUI you should click on the executable file or type:
 ```
-python3.9 ProteinModelerABC_GUI.py
+python3 ProteinModelerABC_GUI.py
 ```
 3. To run it on cluster you should type:
 ```
@@ -53,7 +53,7 @@ make install
 ```
 Next, the user must execute the framework typing:
 ```
-python3.9 ProteinModelerABC_GUI.py
+python3 ProteinModelerABC_GUI.py
 ```
 *(Note that the Settings.txt file is filled with no-biological meaning information)*
 
@@ -66,7 +66,7 @@ make install-GUI
 Next, the user must execute the GUI:
 ```
 1. Going to the "Executable" folder and cliking into the executable file or
-2. python3.9 ProteinModelerABC_GUI.py
+2. python3 ProteinModelerABC_GUI.py
 ```
 *(Note that the Settings.txt will be filled by the user)*
 
