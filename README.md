@@ -57,7 +57,7 @@ make install
 ```
 Next, the user must execute the framework typing:
 ```
-python3 ProteinModelerABC_GUI.py
+python3 ProteinModelerABC.py
 ```
 *(Note that the Settings.txt file is filled with no-biological meaning information)*
 
