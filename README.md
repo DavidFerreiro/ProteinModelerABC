@@ -51,7 +51,7 @@ And next execute "*launch_Simu.sh*" file:
 sbatch launch_Simu.sh
 ```
 ## Fast examples ready to be run on local computer
-The [first Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example1_Coalescent), [second Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example2_PhylogeneticTree) and [third_Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example3_ABCModels) are almost ready to be run. The user should go to the corresponding *(Input)* directory and:
+The [first Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example1_Coalescent), [second Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example2_PhylogeneticTree) and [third_Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example3_ABCModels) are almost ready to be run. The user should go to the corresponding *Input* directory and:
 ```
 make install
 ```
@@ -80,7 +80,7 @@ python3 ProteinModelerABC_GUI.py
 ```
 *(Note that the Settings.txt will be filled by the user)*
 
-Each example includes an *(Output)* folder with an example of the output files. Note that to obtain the outputs under the three ABC methods the user must execute the ABCAnalysis.r file with the desire ABC method.
+Each example includes an *Output* folder with an example of the output files. Note that to obtain the outputs under the three ABC methods the user must execute the ABCAnalysis.r file with the desire ABC method.
 
 ## Disclaimer
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version (at your option) of the License. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place – Suite 330, Boston, MA 02111-1307, USA.
