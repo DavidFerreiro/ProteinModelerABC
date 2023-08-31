@@ -10,6 +10,8 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
 ## Install
+For a first and rapid test of the framework, we recommend installing and running it with a rapid example (details below in the section "Fast examples ready to be run on local computer"), thus using an example placed in [Fast_examples] (https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples).
+
 To compile the program go to the main directory (which must contain all the files of the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) versions) and type:
 ```
 make install
@@ -20,7 +22,7 @@ make install-GUI
 ```
 *(Note that the GUI compilation may fail with some Python versions)*
 
-Automatically, some Python libraries are installed but the user must install the abc R package and the Cluster modules if desire:
+Automatically, some Python libraries are installed but the user must install the abc R package and the Cluster modules if desired:
 
 |Name	|Language	|Version|
 |---------------|---------------|---------------|
