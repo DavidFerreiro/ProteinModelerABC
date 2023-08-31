@@ -10,7 +10,7 @@ For more information about using *ProteinModelerABC*, a manual is [attached](htt
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
 
 ## Install
-For a first and rapid test of the framework, we recommend installing and running it with a rapid example (details below in the section "Fast examples ready to be run on local computer"), thus using an example placed in [Fast_examples] (https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples).
+For a first and rapid test of the framework, we recommend installing and running it with a rapid example (details below in the section "Fast examples ready to be run on local computer"), thus using an example placed in [Fast_examples](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples).
 
 To compile the program go to the main directory (which must contain all the files of the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) versions) and type:
 ```
