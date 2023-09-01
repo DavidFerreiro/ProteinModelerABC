@@ -9,8 +9,8 @@ PROGRAM_NAME = ProteinEvolverProtABC
 VERSION = 1.2.0
 FILES = Makefile parameters 
 EXEDIR  = ../exe
-CMP = gcc -c
-LD = gcc 
+CMP = gcc -c -w
+LD = gcc -w
 LIBRARIES = -lm
 FLAGS = -O3 -Wall
 # for fast compile disable (#) the option one above and enable the one below

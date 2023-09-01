@@ -53,6 +53,8 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   float x, y, z;
   char file_name[500];
   int nchain=1, ic, ichain=0, ini_chain=0;
+  unsigned int i2; // Miguel (removing warning)
+
   n_atom=0;
 
   /* Open file */
@@ -60,7 +62,12 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   Compression=Get_compression(pdb_name); 
   if(Compression){
     sprintf(command, "%s %s > %s\n", PDBCAT, pdb_name, PDBTMP);
-    system(command); strcpy(file_name, PDBTMP);
+      if (system(command) == -1) // Miguel (removing warning)
+      {
+          printf("ERROR in system(command)\n");
+          exit(1);
+      }
+    strcpy(file_name, PDBTMP);
   }else{
     sprintf(file_name, "%s", pdb_name);
   }
@@ -76,16 +83,19 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
     printf(" reading all chains\n");
   }else{
     read_all=0;
-    for(i=0; i<sizeof(chain_to_read); i++){
-      if((chain_to_read[i]=='\0')||(chain_to_read[i]==' '))break;
-      /*printf("%c", chain_to_read[i]);*/    
-    }
-    nchain=i;
-    chain_to_read[i]='\0';
+    for(i2=0; i2<sizeof(chain_to_read); i2++){
+      if((chain_to_read[i2]=='\0')||(chain_to_read[i2]==' '))break;
+      /*printf("%c", chain_to_read[i2]);*/
+    } // Miguel (removing warning)
+    nchain=i2;
+    chain_to_read[i2]='\0';
     if(nchain==0)nchain=1;
     /*printf(" %d chains to read: ", nchain);*/
-    for(i=0; i<nchain; i++)/*printf("%c", chain_to_read[i]);*/
-    printf("");
+      
+    // Miguel (removing warnings)
+    /*for(i=0; i<nchain; i++)*//*printf("%c", chain_to_read[i]);*/
+    /*printf("");*/
+    i = nchain;
   }
 
   *nmr=0;
@@ -239,15 +249,21 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   fclose(file_in);
   if(Verbose)printf("%3d residues\n", N_res);
   if(Compression){
-    sprintf(command, "rm -f %s\n", PDBTMP); system(command);
+    sprintf(command, "rm -f %s\n", PDBTMP);
+      if (system(command) == -1) // Miguel (removing warning)
+      {
+          printf("ERROR in system(command)\n");
+          exit(1);
+      }
   }
   *natoms=n_atom;
   if(read_all){nchain=ichain+1;}
   chain_to_read[nchain]='\0';
+  // Miguel (removing warning)
   /*printf("%d chains: ",nchain);*/
-  for(i=0; i<nchain; i++)/*printf("%c",chain_to_read[i]);*/
+  /*for(i=0; i<nchain; i++)*/ /*printf("%c",chain_to_read[i]);*/
   /*printf("\n%d residues\n", N_res);*/
-  return(N_res);/*AQUI EL WARNING*/
+  return(N_res);
 }
 
 char Het_res(char *res_type_old, char **res_exo, char **res_std, int n_exo)
@@ -407,7 +423,12 @@ int Count_models_PDB(char *pdb_name){
   char string[200], command[200], file_name[500];
   if(Compression){
     sprintf(command, "%s %s > %s\n", PDBCAT, pdb_name, PDBTMP);
-    system(command); strcpy(file_name, PDBTMP);
+      if (system(command) == -1) // Miguel (removing warning)
+      {
+          printf("ERROR in system(command)\n");
+          exit(1);
+      }
+    strcpy(file_name, PDBTMP);
   }else{
     sprintf(file_name, "%s", pdb_name);
   }

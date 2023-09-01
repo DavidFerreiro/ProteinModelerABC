@@ -127,7 +127,7 @@ char *GetWord(char *buffer, char *word, int maxlen, int comma)
          /* Otherwise, if comma is true, just fall through to treat it
             like whitespace
          */
-      case ' ':
+      // case ' ': // Miguel (removing warning)
       case '\t':
          /* If we are in double inverted commas or last char was an escape
             just handle as a normal character
@@ -303,6 +303,9 @@ void FreeArray2D(char   **array,
 {
    int   i;
 
+   if (dim2<0) {
+    printf("WARNING, dim2<0, %d\n", dim2); } // Miguel (removing warning)
+    
    if(array)
    {
       for(i=0; i<dim1; i++)   if(array[i]) free(array[i]);

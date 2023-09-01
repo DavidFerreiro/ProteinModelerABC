@@ -380,9 +380,21 @@ if __name__ == "__main__":
 
         P.write('#Posterior probabilities of Real data\n')
         P.write('modsel.results <- postpr(FullRealmatrix, ModelsVector, FullSSmatrix, tol=ABC_Tolerance, method=ABC_Method)\n')
-        P.write('write(paste("Model selection with abc - Real data",sep=""),"Results_text.txt",append=T)\n')
-        P.write('capture.output(summary(modsel.results), file = "Results_text.txt", append = TRUE)\n')
-        P.write('write(paste("\\n\\n",sep=""),"Results_text.txt",append=T)\n')
+        P.write('if (ABC_Method == "rejection") {')
+        P.write('  write(paste("Model selection with abc - Real data\\nEstimation – Posterior probability of every substitution model (rejection):",sep=""),"Results_text.txt",append=T)\n')
+        #P.write('capture.output(summary(modsel.results), file = "Results_text.txt", append = TRUE)\n')
+        P.write('  summary_output <- capture.output(summary(modsel.results))\n')
+        P.write('  write(paste(summary_output[12:13], sep=""), "Results_text.txt",append=T)\n')
+        P.write('  write(paste("\\n\\n",sep=""),"Results_text.txt",append=T)\n')
+        P.write('}else{\n')
+        P.write('  write(paste("Model selection with abc - Real data",sep=""),"Results_text.txt",append=T)\n')
+        #P.write('capture.output(summary(modsel.results), file = "Results_text.txt", append = TRUE)\n')
+        P.write('  summary_output <- capture.output(summary(modsel.results))\n')
+        P.write('  write(paste(summary_output[11:14], sep=""), "Results_text.txt",append=T)\n')
+        P.write('  write(paste("Estimation – Posterior probability of every substitution model (", ABC_Method,"):",sep=""), "Results_text.txt",append=T)\n')
+        P.write('  write(paste(summary_output[23:24], sep=""), "Results_text.txt",append=T)\n')
+        P.write('  write(paste("\\n\\n",sep=""),"Results_text.txt",append=T)\n')
+        P.write('}\n')
         P.write('############################\n\n')
 
         P.write('#Goodness-of-fit of Real data\n')
@@ -698,7 +710,7 @@ if __name__ == "__main__":
     with open('ProteinModelerABC.out', 'a') as Error:
         Error.write('ProteinModelerABC finished after: ' + str(elapsed_time) + ' seconds')
         Error.close()
-    print('ProteinModelerABC finished after: ' + str(elapsed_time) + ' seconds')
+    print('ProteinModelerABC finished after: ' + str(round(elapsed_time)) + ' seconds')
 
 
 

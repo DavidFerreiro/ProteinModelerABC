@@ -102,6 +102,7 @@ int Read_parameters(char *FILE_IN, char **file_pdb, char *chain, char *file_str,
 
   if(file_in==NULL){
     printf("WARNING, input file %s does not exist\n", FILE_IN);
+    printf("Revise also the output directory %s\n", dir_out); // Miguel (removing warning)
     return(-1);
   }
   /*printf("Reading parameters in %s\n", FILE_IN);*/

@@ -62,7 +62,7 @@ install-GUI:
 	@mkdir ./GUI/Executable
 	@echo "Done!"
 	@echo "Creating ProteinModelerABC GUI executable ..."
-	@python3 -m PyInstaller --onefile -w --add-data "./GUI/Mini.png:." --add-data "./GUI/Splash.png:."  ./GUI/ProteinModelerABC_GUI.py
+	@python3 -m PyInstaller --onefile -w --add-data "./GUI/Mini.png:." --add-data "./GUI/Splash.png:."  ./GUI/ProteinModelerABC_GUI.py --exclude-module _bootlocale
 ifeq ($(OS),Darwin)
 	cp -r ./dist/ProteinModelerABC_GUI.app ./GUI/Executable 
 else
@@ -80,7 +80,7 @@ clean:
 	$(MAKE) -C source/DeltaGREM_src clean
 	@rm -f DeltaGREM
 	$(MAKE) -C source/ProteinEvolverProtABC clean
-	@rm -r bin
-	@rm -r ./GUI/Executable
+	@rm -r -f bin
+	@rm -r -f ./GUI/Executable
 	@echo "Done!"
 

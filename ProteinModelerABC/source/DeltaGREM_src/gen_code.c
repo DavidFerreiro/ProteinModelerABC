@@ -77,6 +77,9 @@ int Translate_aa(char **aa_trans, char *dna_seq,
 int Translate_char(char *aa_trans, int len_amm, char *dna_seq, int len_dna,
 		    char **codon, char *coded_aa)
 {
+  if (len_dna < 1){
+        printf("WARNING, sequence length should not be < 1, %d \n", len_dna);
+        } // Miguel (removing warning)
   for(int i=0; i<len_amm; i++){
     int j=3*i;
     int aa=Coded_aa(&(dna_seq[j]), codon, coded_aa);
@@ -119,6 +122,9 @@ int  Compare_amm_dna(char *dna_seq, int len_dna, short *aa_seq, int len_amm,
 		     char **codon, char *coded_aa)
 {
   // Test if aa_seq and translation of dna_seq coincide
+  if (len_dna < 1){
+        printf("WARNING, sequence length should not be < 1, %d \n", len_dna);
+    } // Miguel (removing warning)
   short *aa_test=malloc(len_amm*sizeof(short));
   int i, nmut=0;
   Translate_new(dna_seq, aa_test, len_amm, codon, coded_aa);

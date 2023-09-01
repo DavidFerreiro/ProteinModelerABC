@@ -38,6 +38,7 @@ int Get_pdb(struct protein *prot,
 	    char *file, char *chain, int **res_index)
 {
   int natoms, natoms2, ANISOU, nmr, i;
+  unsigned int i2; // Miguel (removing warning)
 
   prot->length=0;
   int nres=Read_coord(file, &nmr, NULL, NULL, chain, &ANISOU, &natoms);
@@ -64,8 +65,8 @@ int Get_pdb(struct protein *prot,
   sprintf(prot->name, "%s%s", pdbid, chain);
 
   // Count chains
-  for(i=0; i<sizeof(chain); i++){if(chain[i]=='\0')break;}
-  int nchain=i;
+  for(i2=0; i2<sizeof(chain); i2++){if(chain[i2]=='\0')break;} // Miguel (removing warning)
+  int nchain=i2;
   if(nchain==0){
     printf("WARNING: 0 chains found in %s, setting to 1\n", chain);
     nchain=1;
@@ -169,20 +170,20 @@ int Get_pdb(struct protein *prot,
     r++;
   }
 
-  if(1){
+  /*if(1){*/ // Miguel (removing warnings)
     /*printf("Sequence:            ");*/
-    for(i=0; i<nres1; i++)/*printf("%c", AMIN_CODE[prot->aa_seq[i]]);*/
+    /*for(i=0; i<nres1; i++)*/ /*printf("%c", AMIN_CODE[prot->aa_seq[i]]);*/
     /*printf("\n");*/
     /*printf("Secondary structure: ");*/
-    for(i=0; i<nres1; i++)/*printf("%c", prot->sec_str[i]);*/
+    /* for(i=0; i<nres1; i++)*/ /*printf("%c", prot->sec_str[i]);*/
     /*printf("\n");
     printf("16 states:           ");*/
-    for(i=0; i<nres1; i++)/*printf("%c", SEC_EL[prot->i_sec[i]]);*/
-    printf("");
+    /* for(i=0; i<nres1; i++)*/ /*printf("%c", SEC_EL[prot->i_sec[i]]);*/
+    /* printf(" "); */
     //printf("i_sec:               ");
     //for(i=0; i<nres1; i++)printf("%d", prot->i_sec[i]);
     //printf("\n");
-  }
+  /*}*/
   return(nres1);
 }
 
