@@ -5,12 +5,12 @@
 # Much taken from Joe Felsenstein's PHYLIP makefiles.
 
 
-PROGRAM_NAME = ProteinEvolverProtABC
-VERSION = 1.2.0
+PROGRAM_NAME = ProteinEvolverEspBDempName
+VERSION = 2.1.1
 FILES = Makefile parameters 
 EXEDIR  = ../exe
-CMP = gcc -c -w
-LD = gcc -w
+CMP = gcc -c
+LD = gcc 
 LIBRARIES = -lm
 FLAGS = -O3 -Wall
 # for fast compile disable (#) the option one above and enable the one below

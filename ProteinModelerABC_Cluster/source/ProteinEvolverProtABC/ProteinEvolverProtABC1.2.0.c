@@ -65,7 +65,7 @@
 #include <time.h>
 #include <ctype.h>
 #include <limits.h>
-#include <sys/timeb.h>
+//#include <sys/timeb.h> // Miguel
 
 #ifndef macintosh
 	#include <sys/types.h>
@@ -291,7 +291,7 @@ struct contact{
 };
 
 struct protein{
-  char name[40];
+  char name[200]; // Miguel (removing warning)
   int length;
   int n_cont;
   short **contact;
@@ -317,8 +317,8 @@ extern struct protein prot[N_PROT_MAX], target;
 
 
 /* Read */
-static void 	PrintTitle (FILE *file);
-static void 	PrintDate (FILE *file);
+//static void 	PrintTitle (FILE *file);
+//static void 	PrintDate (FILE *file); // Miguel (removing warning)
 static void		PrintUsage();
 #ifdef USER_INPUT
 static void 	UserInput (long int *seed);
@@ -443,8 +443,8 @@ static int		IsValidBreakSite (int *activeGametes, TreeNode *nodes, int whichInd,
 static int		CountsForExpNumRec (int *activeGametes, int whichInd, int whichSite, TreeNode *nodes, int *S_MRCA, int sizeNode); 
 static int		recSegmentsGeneratesLeft (int nodeValue, TreeSegment *s, TreeSegment *n, int numNuc, int whichSite, int *actSegIndex);
 static int		recSegmentsGeneratesRight (int nodeValue, TreeSegment *s, TreeSegment *m, int numNuc, int whichSite, int *actSegIndex);
-static int		recSegmentsGeneratesLeftBrokenCodon (int nodeValue, TreeSegment *s, TreeSegment *n, int numNuc, int whichSite, int LeftLess, int RightHigh, int *actSegIndex);
-static int		recSegmentsGeneratesRightBrokenCodon (int nodeValue, TreeSegment *s, TreeSegment *m, int numNuc, int whichSite, int LeftLess, int RightHigh, int *actSegIndex);
+static int		recSegmentsGeneratesLeftBrokenCodon (int nodeValue, TreeSegment *s, TreeSegment *n, int numNuc, int whichSite, /*int LeftLess,*/ int RightHigh, int *actSegIndex);
+static int		recSegmentsGeneratesRightBrokenCodon (int nodeValue, TreeSegment *s, TreeSegment *m, int numNuc, int whichSite, int LeftLess, /*int RightHigh,*/ int *actSegIndex);
 static int		overLapSegmentsCoalMRCA (TreeNode *p, TreeNode *q, int sizeNode_p, int sizeNode_q, int site);
 static void		buildTreeCoal (TreeNode *p, TreeNodex *f, int numSequences, int *numActNodex);
 static void		buildTreeInit (TreeNode *p, TreeNodex *f, int numNuc, int *arrayIndBreakpointsOrd, int whoBreakp, int numSequences, int *numActNodex);
@@ -575,14 +575,14 @@ void 			Print_ave (FILE *file_ave, double it_sum, float t_indip, int N_pop, doub
 void 			Print_ave_AA (FILE *file_ave, double it_sum, float t_indip, int N_pop, double f_sum, double f_dev, double E_sum, double E_dev, double DG_sum, double DG_dev, float seq_entr, double num_syn_subst, double num_aa_subst, double Tload_sum, double Tload_dev, double Mload_sum, double Mload_dev, int Nload, int NEUTRAL);
 void 			Print_mean (FILE *file_out, float sum, float dev, float n_sum, float t_indip);
 void 			Print_final (char *name_file, double it_sum, float TEMP, float s0, int N_pop, float *freq_nuc, double f_ave, double f_dev, double E_ave, double E_dev, double DG_ave, double DG_dev, float seq_entr, double seq_entr_dev, double Tload_sum, double Tload_dev, double Mload_sum, double Mload_dev, int Nload, double num_syn_subst, double num_aa_subst, char *dna_seq, int len_dna, int NEUTRAL);
-void 			Print_final_AA (char *name_file, double it_sum, float TEMP, float s0, int N_pop, double f_ave, double f_dev, double E_ave, double E_dev, double DG_ave, double DG_dev, float seq_entr, double seq_entr_dev, double Tload_sum, double Tload_dev, double Mload_sum, double Mload_dev, int Nload, double num_syn_subst, double num_aa_subst, short *aa_seq, int len_amm, int NEUTRAL);
+void 			Print_final_AA (char *name_file, double it_sum, float TEMP, float s0, int N_pop, double f_ave, double f_dev, double E_ave, double E_dev, double DG_ave, double DG_dev, float seq_entr, double seq_entr_dev, double Tload_sum, double Tload_dev, double Mload_sum, double Mload_dev, int Nload, double num_syn_subst, double num_aa_subst, /*short *aa_seq, int len_amm, */ int NEUTRAL);
 void 			Read_ene_par (char *, float **interactions);
 int 			Read_ene_new (char *, float **interactions);
 /*char 			*Read_sequence (int *len_dna, char *inseq);*/
 FILE 			*open_file (char *, char *, short *, int, char *fit_def);
 FILE 			*open_file_AA (char *, char *, short *, int, char *fit_def);
-void 			Output_name (char *file_name, char *dir, char *name, float TEMP, float S0, int N_pop, float *freq_nuc, char *dirStability, char *file_seq, int NEUTRAL);
-void 			Output_name_AA (char *file_name, char *dir, char *name, float TEMP, float S0, int N_pop, char *dirStability, char *file_seq, int NEUTRAL);
+void 			Output_name (char *file_name, char *dir, char *name, float TEMP, /*float S0,*/ int N_pop, float *freq_nuc, char *dirStability, char *file_seq, int NEUTRAL);
+void 			Output_name_AA (char *file_name, char *dir, char *name, float TEMP, /*float S0,*/ int N_pop, char *dirStability, char *file_seq, int NEUTRAL);
 int 			Print_dna (char *, FILE *, int);
 int 			Get_name (char *name, char *name_seq, int N);
 float 			Sequence_entropy (int **aa_distr, int L);
@@ -738,8 +738,10 @@ double 			A2, A3;
 struct 			protein prot[N_PROT_MAX], target;
 struct 			residue seq[RES_MAX];
 /*float 			**interactions;*/
-char 			FILE_CODE_DEF[N_CHAR], FILE_ENE_DEF[N_CHAR]; 
-char 			FILE_CODE[N_CHAR], FILE_ENE[N_CHAR], FILE_STR[N_CHAR], FILE_PDB[N_CHAR];
+const char 		FILE_CODE_DEF[N_CHAR];
+char            FILE_ENE_DEF[N_CHAR];
+char 			FILE_CODE[N_CHAR];
+char            FILE_ENE[N_CHAR], FILE_STR[N_CHAR], FILE_PDB[N_CHAR];
 char 			coded_aa[64]="FFLLLLLLIIIMVVVVSSSSPPPPTTTTAAAAYYHHQQNNKKDDEECCWRRRRSSRRGGGG***";
 char 			*codon[64]={"TTT","TTC","TTA","TTG","CTT","CTC","CTA","CTG","ATT","ATC","ATA","ATG","GTT","GTC","GTA","GTG","TCT","TCC","TCA","TCG","CCT","CCC","CCA","CCG","ACT","ACC","ACA","ACG","GCT","GCC","GCA","GCG","TAT","TAC","CAT","CAC","CAA","CAG","AAT","AAC","AAA","AAG","GAT","GAC","GAA","GAG","TGT","TGC","TGG","CGT","CGC","CGA","CGG","AGT","AGC","AGA","AGG","GGT","GGC","GGA","GGG","TAA","TAG","TGA"};
 char 			AA_code[]="AEQDNLGKSVRTPIMFYCWH";
@@ -812,7 +814,8 @@ int main(int argc, char **argv)
 	double		specMigPropPopul;
 	char		ch;
 	FILE 		*fp;
-	struct 		timeb tmb;
+	// struct 		timeb tmb; // Miguel (removing warning)
+    int         timeMS;
 	
 	fpout = stdout;
 	fperr = stderr;
@@ -896,7 +899,8 @@ int main(int argc, char **argv)
 	freqNumber = 4;
 	doCountsForExpNumRec = YES;		
 	i = k = 0;
-	b = specMigPropPopul = 0.0;
+    b = 1.0 * 0.0; // = 0
+	specMigPropPopul = 0.0;
 	Nscaling = 2; /* controls the scaling of time in Nscaling generations 1=haploids 2=diploids */
 	numNodes = 0;
 	BBmodelNumber = -1;
@@ -2027,12 +2031,14 @@ int main(int argc, char **argv)
 
 
   	/* Set seed and spin wheels of pseudorandom number generator */
-	/*seed = (unsigned int) clock();*/
-	ftime(&tmb);
-	/*fprintf(stderr, "\n seed = %lu; userSeed = %lu \n", seed, userSeed);
-	printf("tmb.time     = %ld (seconds), %ld \n", tmb.time, fabs(tmb.time));
-  	printf("tmb.millitm  = %ld (mlliseconds), %ld \n", tmb.millitm, fabs(tmb.millitm));*/
-	seed = seed + fabs(tmb.millitm); 
+	/*ftime(&tmb);
+    timeMS = tmb.millitm;
+    printf("tmb.millitm  = %d, %d \n", tmb.millitm, timeMS);*/
+    // Miguel (removing warning)
+    timeMS = time(NULL);
+    //printf("%d \n", timeMS);
+    
+	seed = seed + abs(timeMS);
     /*fprintf(stderr, "\n seed = %lu; userSeed = %lu \n", seed, userSeed);*/
 
 	if (userSeed > 0)
@@ -2257,7 +2263,12 @@ int main(int argc, char **argv)
 		else /* It can open MRCAFile */
 			{
 			i = 0;
-			fscanf(fpMRCA, "%s", MRCAsequence); /* copy MRCA file into the MRCAsequence array */
+			//fscanf(fpMRCA, "%s", MRCAsequence); /* copy MRCA file into the MRCAsequence array */
+            if (fscanf(fpMRCA, "%s", MRCAsequence) == -1) // Miguel (removing warning)
+                {
+                    printf("ERROR in fscanf\n");
+                    exit(1);
+                }
 			fclose(fpMRCA); 
 
 
@@ -3514,6 +3525,10 @@ double 			tcumNumRE, tcumNumREntc, tcumNumCA, tcumNumMU, tcumNumMIG, tcountTMRCA
 
 	/* execution time */
 	secs = (double)(clock() - start) / CLOCKS_PER_SEC;
+    if (secs < 0) // Miguel (removing warning), checking
+        {
+        fprintf(stderr, "Time processing: %G seconds .. \n", secs);
+        }
 //	fprintf(stderr, "\n\n\n___________________________________________________________________");
 //	fprintf(stderr, "\nTime processing: %G seconds\n", secs);
 //	fprintf(stderr, "\nIf you need help type '-?' in the command line of the program\n\n");
@@ -3584,7 +3599,12 @@ static void ReadTree (FILE *fp, Treetnode *treeRoot)
 	currentTreeRoot = treeRoot;
 	
 	/*fprintf (stderr, "\nReading tree ... ");*/
-	fgets (treeString, MAX_LINE, fp);
+	//fgets (treeString, MAX_LINE, fp); // Miguel (removing warning)
+    if (fgets (treeString, MAX_LINE, fp) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
 	if (treeString == NULL)
 		{
 		fprintf(fperr, "Error: Could not read tree");
@@ -3727,6 +3747,7 @@ void CheckTree ()
 {
 	int		i, k;
 	int		thereIsError, numLeftPar, numRightPar;
+    int     tp;
 	
 	thereIsError = NO;
     numLeftPar = 1;
@@ -3764,7 +3785,8 @@ void CheckTree ()
 				thereIsError = YES;
 				fprintf (stderr,"\nERROR4\n");
 				}
-			if (treeString[i+1] == ';' && i == strlen(treeString)-3)
+            tp = strlen(treeString)-3; // Miguel (removing warning)
+			if (treeString[i+1] == ';' && i == tp)
 				thereIsError = NO;
 			numRightPar++;
 			}
@@ -4064,7 +4086,7 @@ char *AllocCharArray (int length, char *name)
 void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, double recombinationRate, int numPopulations, long int *seed)
 	{
 	int			tt, e, c, d, i, j, w, k, a, b, aa, bb, aaa, bbb, ss, step, position, overFirst, overEnd, sss, *activeGametes, isCoalescence, whichInd, 
-				whichSite, hasPassedBreakPoint,
+				whichSite, /*hasPassedBreakPoint,*/
 				firstInd, secondInd, newInd, firstHalf, secondHalf, foundSuperflousNode, eventNum, numActiveGametes, 
 				legalBreakpoint, cum_gi, period, isRecombination, isMigration, whichDeme, arrivedDeme, currentBigDeme, currentDemesNumber;
 	int			minInit_qq, minInit_pp, maxEnd_pp, maxEnd_qq;
@@ -4089,7 +4111,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 	double		*rateREpartial, *rateCApartial, *rateMIGpartial, *ratePartial, *cumPopulTase;
 	int			currentSample, saveThis;	
 	int			doBreakpBroken, LeftLess, LeftHigh, RightLess, RightHigh, LeftLess2, RightHigh2, mmm, stateHere_P, stateHere_Q, sigue, Ok_SMRCA_Codon, AncGMRCA_obtained;
-	int			controlConvSTST1, summConvSTST1, controlConvSTST2, summConvSTST2, OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;	
+	int			/*controlConvSTST1,*/ summConvSTST1, controlConvSTST2, summConvSTST2, OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;
 	double		currentMigrationRate;
 
 	
@@ -4129,7 +4151,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 	mmm = sigue = Ok_SMRCA_Codon = 0;
 	AncGMRCA_obtained = NO;
 	overFirst = overEnd = sizeNode_p = sizeNode_q = sizeNode = out = numActNodex = many = c = 0;
-	controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = newOkValueCI = 0;
+	/*controlConvSTST1 =*/ summConvSTST1 = controlConvSTST2 = summConvSTST2 = newOkValueCI = 0;
 	OkValueCI = 1;
 
 	currentDemesNumber = numPopulations;
@@ -5544,7 +5566,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 					}
 			
 				/* copy whichIndividual to a new space in memory */
-				hasPassedBreakPoint = NO;
+				/*hasPassedBreakPoint = NO;*/
 			
 			
 				firstHalf = nextAvailable++; /* firstHalf is the first node that was created by the recombination */
@@ -5938,7 +5960,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex); /* it makes the segments of the left node */
+							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, /*LeftLess,*/ RightHigh, &actSegIndex); /* it makes the segments of the left node */
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;
 							}
@@ -6072,7 +6094,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex);
+							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, /*RightHigh,*/ &actSegIndex);
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;
 							}
@@ -6355,7 +6377,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 						}
 					else if (doMigrationSTST == YES) /* migrations go only to close neighboring demes */ /* MIGUEL */
 						{
-						controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0;
+						/*controlConvSTST1 =*/ summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0;
 
 						for (k = 1; k <= numPopulations+currentBigDeme; k++)
 							{
@@ -8022,7 +8044,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 						}
 					}
 				/* copy whichIndividual to a new space in memory */
-				hasPassedBreakPoint = NO;
+				/*hasPassedBreakPoint = NO;*/
 			
 				firstHalf = nextAvailable++; /* firstHalf is the first node that was created by the recombination */
 				if (nextAvailable >= numNodes) /* if there aren't enough nodes it go into and it addition more */
@@ -8390,7 +8412,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex); /* it makes the segments of the left node */
+							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, /*LeftLess,*/ RightHigh, &actSegIndex); /* it makes the segments of the left node */
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;							
 							}
@@ -8506,7 +8528,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex);
+							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, /*RightHigh,*/ &actSegIndex);
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;
 							}
@@ -10139,7 +10161,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, int N, double recombinationRate, int numPopulations, long int *seed)
 	{
 	int			tt, e, c, d, i, j, w, k, a, b, aa, bb, aaa, bbb, ss, step, position, overFirst, overEnd, sss, *activeGametes, isCoalescence, whichInd, 
-				whichSite, hasPassedBreakPoint,
+				whichSite, /*hasPassedBreakPoint,*/
 				firstInd, secondInd, newInd, firstHalf, secondHalf, foundSuperflousNode, eventNum, numActiveGametes, 
 				period, isRecombination, isMigration, whichDeme, arrivedDeme, currentBigDeme, currentDemesNumber; /*legalBreakpoint,*/ 
 	int			minInit_qq, minInit_pp, maxEnd_pp, maxEnd_qq;
@@ -10165,7 +10187,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 	double		*rateREpartial, *rateCApartial, *rateMIGpartial, *ratePartial, *cumPopulTase;
 	int			currentSample, saveThis;	
 	int			doBreakpBroken, LeftLess, LeftHigh, RightLess, RightHigh, LeftLess2, RightHigh2, mmm, stateHere_P, stateHere_Q, sigue, Ok_SMRCA_Codon, AncGMRCA_obtained;
-	int			controlConvSTST1, summConvSTST1, controlConvSTST2, summConvSTST2, OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;	
+	int			/*controlConvSTST1,*/ summConvSTST1, controlConvSTST2, summConvSTST2, OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;
 	double		currentMigrationRate;
 	int 		cuantos;
 	double		RdValue;
@@ -10212,7 +10234,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 	mmm = sigue = Ok_SMRCA_Codon = 0;
 	AncGMRCA_obtained = NO;
 	overFirst = overEnd = sizeNode_p = sizeNode_q = sizeNode = out = numActNodex = many = c = 0;
-	controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = newOkValueCI = 0;
+	/*controlConvSTST1 = */summConvSTST1 = controlConvSTST2 = summConvSTST2 = newOkValueCI = 0;
 	OkValueCI = 1;
 	printRecPDF = NO;
 	giBegin = giEnd = 0;
@@ -11815,7 +11837,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 					}
 			
 				/* copy whichIndividual to a new space in memory */
-				hasPassedBreakPoint = NO;
+				/*hasPassedBreakPoint = NO;*/
 			
 			
 				firstHalf = nextAvailable++; /* firstHalf is the first node that was created by the recombination */
@@ -12210,7 +12232,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex); /* it makes the segments of the left node */
+							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, /*LeftLess,*/ RightHigh, &actSegIndex); /* it makes the segments of the left node */
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;
 							}
@@ -12344,7 +12366,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex);
+							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, /*RightHigh,*/ &actSegIndex);
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;
 							}
@@ -12627,7 +12649,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 						}
 					else if (doMigrationSTST == YES) /* migrations go only to close neighboring demes */ /* MIGUEL */
 						{
-						controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0;
+						/*controlConvSTST1 =*/ summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0;
 
 						for (k = 1; k <= numPopulations+currentBigDeme; k++)
 							{
@@ -14391,7 +14413,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 						}
 					}
 				/* copy whichIndividual to a new space in memory */
-				hasPassedBreakPoint = NO;
+				/*hasPassedBreakPoint = NO;*/
 			
 				firstHalf = nextAvailable++; /* firstHalf is the first node that was created by the recombination */
 				if (nextAvailable >= numNodes) /* if there aren't enough nodes it go into and it addition more */
@@ -14759,7 +14781,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 
 						if (doBreakpBroken == YES && s->sStart < whichSite && s->sEnd >= whichSite)
 							{
-							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex); /* it makes the segments of the left node */
+							w = recSegmentsGeneratesLeftBrokenCodon(nodeValue, s, n, numNuc, whichSite, /*LeftLess,*/ RightHigh, &actSegIndex); /* it makes the segments of the left node */
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;							
 							}
@@ -14877,7 +14899,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 							{
 							/*fprintf (fpmpi, "\nBefore recSegmentsGeneratesRightBrokenCodon");
 							fprintf (fpmpi, "\ns->sStart = %d, s->sEnd = %d, whichSite = %d, LeftLess = %d, RightHigh = %d \n\n", s->sStart, s->sEnd, whichSite, LeftLess, RightHigh);*/
-							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, RightHigh, &actSegIndex);
+							w = recSegmentsGeneratesRightBrokenCodon(nodeValue, s, m, numNuc, whichSite, LeftLess, /*RightHigh,*/ &actSegIndex);
 							LeftLess2 = LeftLess;
 							RightHigh2 = RightHigh;
 							}
@@ -16907,7 +16929,7 @@ void EvolveSequenceOnTree_Codon (long int *seed, double m,
 
 	/* making codon breakpoints */
 	for (i = 0; i < indNumRE+1; i++)
-		arrayIndBreakpointsOrd_C[i] = fabs(arrayIndBreakpointsOrd[i]/3);
+		arrayIndBreakpointsOrd_C[i] = abs(arrayIndBreakpointsOrd[i]/3);
 	
 	if (doMRCAFile == YES) /* MRCA from File */
 		{
@@ -17604,10 +17626,10 @@ double roundit(double d,int dig) /* d is a double number, dig is the number of d
 
 void SimulateDataForSite_Nucleotide_RECURSIVE_NET (TreeNode *p, int siteNucleotide, int numSites, double m, double varRate, double kappa, long int *seed)
 	{
-	int			i, k, step, control;
+    int			i, k, step; //control;
 	double		ran, cumProb[4], Pij[4][4];
-	double 		a, b;
-	TreeNode *q;
+	//double 		a, b;
+	//TreeNode *q;
 	TreeSegment *s;
 	
 //	TreeNode *q, *r;
@@ -17616,12 +17638,14 @@ void SimulateDataForSite_Nucleotide_RECURSIVE_NET (TreeNode *p, int siteNucleoti
 	/*
 	fprintf (fpmpi, "\n codon = %d", siteCodon);
 	*/
-	q = NULL;
+    
+    // Miguel (removing warning)
+	/*q = NULL;
 	a = 0;
-	b = 0;
+	b = 0;*/
 	step = 0;
 	k = 0;
-	control = 0;
+	/*control = 0;*/
 	
 
 	
@@ -17847,17 +17871,15 @@ void SimulateDataForSite_Nucleotide_RECURSIVE_NET (TreeNode *p, int siteNucleoti
 
 
 
-
-
 /********************************** SimulateDataForSite_AA_RECURSIVE_NET ***********************************/
 /* Simulates the aa substitution process for a given aa */
 
 void SimulateDataForSite_AA_RECURSIVE_NET (TreeNode *p, int siteNucleotide, int numSites, double m, double varRate, long int *seed)
 	{
-	int			i, k, step, control;
+    int			i, k, step; //, control;
 	double		ran, cumProb[20], Pij[20][20];
-	double 		a, b;
-	TreeNode *q;
+	//double 		a, b;
+	//TreeNode *q;
 	TreeSegment *s;
 	
 //	TreeNode *q, *r;
@@ -17866,12 +17888,14 @@ void SimulateDataForSite_AA_RECURSIVE_NET (TreeNode *p, int siteNucleotide, int 
 	/*
 	fprintf (fpmpi, "\n codon = %d", siteCodon);
 	*/
-	q = NULL;
+        
+    // Miguel (removing warning)
+	/*q = NULL;
 	a = 0;
-	b = 0;
+	b = 0;*/
 	step = 0;
 	k = 0;
-	control = 0;
+	//control = 0;
 	
 
 	
@@ -18200,7 +18224,7 @@ void SimulateDataForSite_Codon_RECURSIVE_NET (TreeNode *p, int siteCodon, int nu
 	{
 	int			i, j, k, step, NOcontinueNode, doCombineCodons, control;
 	double		ran, cumProb[NUMCOD], Pij[NUMCOD][NUMCOD];
-	double a,b;
+    double a; //b;
 	int nuc1, nuc2, nuc3, InCodon1, InCodon2, brokePosition, outCodon;
 	int aminoacid1, aminoacid2;
 	TreeNode *q;
@@ -18214,7 +18238,7 @@ void SimulateDataForSite_Codon_RECURSIVE_NET (TreeNode *p, int siteCodon, int nu
 	*/
 	q = NULL;
 	a = 0;
-	b = 0;
+	//b = 0; // Miguel (removing warning)
 	step = 0;
 	k = 0;
 	control = 0;
@@ -24221,9 +24245,9 @@ void AAevolModel (double Pij[NUMAA][NUMAA], double branchLength, double varRate)
 	double	t, expt[NUMAA]/*, GammaVarRateOmega*/; 
 	/* double 			Rmat_AA[NUMAA+2], Qij_AAa[NUMAA*NUMAA], Cijk_AA[NUMAA*NUMAA*NUMAA*NUMAA], Root_AA[NUMAA], Qij_AA[NUMAA][NUMAA]; */ /* global variables */
 
-	double a;
+	/*double a;
 	
-	a = 0;
+	a = 0;*/ // Miguel (removing warning)
 	k = 0;
 	
 	/*fprintf (fpmpi, "\nIN AA MODEL FUNCTION\n");*/
@@ -24304,9 +24328,9 @@ void CodonModel (double Pij[NUMCOD][NUMCOD], double branchLength, double varRate
 	int 	i, j, k;
 	double	t, expt[NUMCOD]/*, GammaVarRateOmega*/; 
 	/* double 			Rmat_C[66], Qij_CC[4096], Cijk_C[16777216], mr, tstv, Root_C[NUMCOD], Qij_C[NUMCOD][NUMCOD];*/ /* global variables */
-	double a;
+	/*double a;
 	
-	a = 0;
+	a = 0;*/ // Miguel (removing warning)
 	k = 0;
 	
 	/*fprintf (fpmpi, "\nIN CODON MODEL FUNCTION\n");*/
@@ -24506,7 +24530,7 @@ void CodonModel_specialBranches (double Pij[NUMCOD][NUMCOD], double branchLength
 	int 	i, j, k;
 	double	t, expt[NUMCOD]/*, GammaVarRateOmega*/; 
 	/* double 			Rmat_C[66], Qij_CC[4096], Cijk_C[16777216], mr, tstv, Root_C[NUMCOD], Qij_C[NUMCOD][NUMCOD];*/ /* global variables */
-	double a;
+	//double a; // Miguel (removing warning)
 	
 	int			category, M8option;
 	double		ran;
@@ -24516,7 +24540,7 @@ void CodonModel_specialBranches (double Pij[NUMCOD][NUMCOD], double branchLength
 	double		GammaVarRateOmegaM6, VarOmegaM6, GammaVarRateOmegaM910, VarOmegaM910;
 	
 	M8option = 0;
-	a = 0;
+	//a = 0;
 	k = 0;
 	category = 0;
 	
@@ -24529,8 +24553,10 @@ void CodonModel_specialBranches (double Pij[NUMCOD][NUMCOD], double branchLength
 		omega = OmegaInit*GammaVarRateOmega;
 		buildCodonMatrix_Qij_Cijk ();
 		}*/
-
-
+    if (index1 < -10 || index2 < -10) // Miguel (removing warning)
+         {
+         ;
+         }
 	i = siteCodon;
 	if (doGivenUserTrees == YES)
 		{
@@ -25091,7 +25117,7 @@ void EvolveSequenceOnTree_NEW_AA (long int *seed, double m, double alpha, double
 
 	/* making codon breakpoints */
 	for (i = 0; i < indNumRE+1; i++)
-		arrayIndBreakpointsOrd_C[i] = fabs(arrayIndBreakpointsOrd[i]/3);
+		arrayIndBreakpointsOrd_C[i] = abs(arrayIndBreakpointsOrd[i]/3);
 	
 
 
@@ -25282,7 +25308,7 @@ void EvolveSequenceOnTree_NEW (long int *seed, double m, double kappa,
 	
 	/* making codon breakpoints */
 	for (i = 0; i < indNumRE+1; i++)
-		arrayIndBreakpointsOrd_C[i] = fabs(arrayIndBreakpointsOrd[i]/3);
+		arrayIndBreakpointsOrd_C[i] = abs(arrayIndBreakpointsOrd[i]/3);
 	
 
 	/** Label of GMRCA **/
@@ -26240,13 +26266,13 @@ void EvolveSequenceOnTree_UserTrees_Codon (long int *seed, double alpha, int num
 	double		GammaVarRateOmegaM6, VarOmegaM6, GammaVarRateOmegaM910, VarOmegaM910;
 	double		BBM0GammaVarRateOmega, BBM0VarOmega1, BBM0omega, BBM0betaVar, BBM0M7_FinalSite_omega, BBM0partialomega;
 	Treetnode	*roottnode_x, *x;
-	int			i, w, n, j, sitePosition, siteCodon, M8option, z;
+	int			i, /*w,*/ n, j, sitePosition, siteCodon, M8option, z;
 	double		cumFreq[64];
 	int			out_C[4], codon[3];
 	int			*codonMRCASeqx;
 	double		dNdSbranches[MAX_tnodeS];
 
-	w = sitePosition = a = j = M8option = e = z = 0;
+	/*w =*/ sitePosition = a = j = M8option = e = z = 0; // Miguel (removing warning)
 	n = siteCodon = 1;
 	out_C[0] = out_C[1] = out_C[2] = out_C[3] = -1;
 	BBM0omega = -1;	
@@ -26418,7 +26444,7 @@ void EvolveSequenceOnTree_UserTrees_Codon (long int *seed, double alpha, int num
 	/**************************************/
 	/* VARIABLE dN/dS per branch, it is included in the node.. */
 	/*fprintf (fpmpi, "\n Entra en la recursion, EvolveSequenceOnTree_Codon, numRE = %d, numREbreakCod = %d", numRE, numREbreakCod);*/
-	w = 0;
+	//w = 0; // Miguel (removing warning)
 	if (doPrintOmegasPerSitefiles == YES && doVariableDnDsBranches == NO) /* print omegas to file */
 		fprintf(fpOmegasPerSitePrint,"Site      OmegaValue\n");
 	if (doPrintOmegasPerSitefiles == YES && doVariableDnDsBranches == YES) /* print omegas to file */
@@ -26926,13 +26952,13 @@ void SimulateDataForSite_UserTrees_Codon (Treetnode *p, int siteNum, int numSite
 							double siteRate, long int *seed, char *MRCAsequence, int *codonMRCASeqx)
 {
 	int			i, j;
-	int			n;
+	//int			n;
 	double		ran, cumProb[NUMCOD], Pij[NUMCOD][NUMCOD];
 	double a;
 	int aminoacid1, aminoacid2;
 
 
-	n = 1;
+	//n = 1; // Miguel (removing warning)
 
 	if (p != NULL)
 		{
@@ -27074,7 +27100,7 @@ char		*Pop_evolDNA (double branchLength, char *current_seq, int numSites, int da
   ************************/
   // Input files
   char file_pdb[N_CHAR], file_str[N_CHAR], file_seq[N_CHAR];
-  char fit_def[1000], name_file[N_CHAR];
+  char fit_def[1000], name_file[N_CHAR*5]; // Miguel (removing warning)
 
   // Genetic code
   // char *codon[64], coded_aa[64], name_code[200];
@@ -27131,7 +27157,7 @@ char		*Pop_evolDNA (double branchLength, char *current_seq, int numSites, int da
   int CountDNAmutations;
 
   // Input operations
-  sprintf(FILE_CODE, FILE_CODE_DEF);
+  //sprintf(FILE_CODE, FILE_CODE_DEF); // Miguel (removing warning)
   sC1=0.1; sC0=0; s0=0.0; TEMP=1; // default
   ini_print=0;
   ExpectedNumberMutations = 0;
@@ -27368,7 +27394,7 @@ char		*Pop_evolDNA (double branchLength, char *current_seq, int numSites, int da
   // Output operations (wild type sequence needed)
   if (printPopEvolOutputFiles == 2)
 		{
-	 	Output_name(name_file, dir_out, target.name, TEMP, s0, N_pop, freq_nuc, dirStability, file_seq, NEUTRAL);
+	 	Output_name(name_file, dir_out, target.name, TEMP, /*s0,*/ N_pop, freq_nuc, dirStability, file_seq, NEUTRAL);
  		file_dna=open_file(name_file, EXT_DNA, aa_seq, 2, fit_def);
  		fclose(file_dna);
  	 	file_ave=open_file(name_file, EXT_AVE, aa_seq, 0, fit_def);
@@ -27646,7 +27672,7 @@ char		*Pop_evolAA (double branchLength, char *current_seq, int numSites, int dat
   ************************/
   // Input files
   char file_pdb[N_CHAR], file_str[N_CHAR], file_seq[N_CHAR];
-  char fit_def[1000], name_file[N_CHAR];
+  char fit_def[1000], name_file[N_CHAR*5]; // Miguel (removing warning)
 
   /***********************
          SEQUENCES
@@ -27706,7 +27732,7 @@ char		*Pop_evolAA (double branchLength, char *current_seq, int numSites, int dat
 
 
   // Input operations
-  sprintf(FILE_CODE, FILE_CODE_DEF);
+  // sprintf(FILE_CODE, FILE_CODE_DEF); // Miguel (removing warning)
   sC1=0.1; sC0=0; s0=0.0; TEMP=1; // default
   ini_print=0;
   ExpectedNumberMutations = 0;
@@ -27980,7 +28006,7 @@ if (AlmostRootNode != 0) /* nodes close to the root (aa sequence should be = pdb
   // Output operations (wild type sequence needed)
 	if (printPopEvolOutputFiles == 2)
 		{
-		  Output_name_AA (name_file, dir_out, target.name, TEMP, s0, N_pop, dirStability, file_seq, NEUTRAL);
+		  Output_name_AA (name_file, dir_out, target.name, TEMP, /*s0,*/ N_pop, dirStability, file_seq, NEUTRAL);
   		/*file_dna=open_file_AA (name_file, EXT_DNA, aa_seq, 2, fit_def);*/
   		file_ave=open_file_AA (name_file, EXT_AVE, aa_seq, 0, fit_def);
   		file_stab=open_file_AA (name_file, EXT_OUT, aa_seq, 1, fit_def);
@@ -28214,7 +28240,7 @@ if (AlmostRootNode != 0) /* nodes close to the root (aa sequence should be = pdb
   		Print_final_AA (name_file, it_sum, TEMP, s0, N_pop,
 	      f_ave, f_dev, E_nat_ave, E_nat_dev, DG_ave, DG_dev,
 	      seq_entr, entr_dev, Tload_sum, Tload_dev, Mload_sum, Mload_dev, Nload,
-	      num_syn_subst, num_aa_subst, aa_seq, len_amm, NEUTRAL);
+	      num_syn_subst, num_aa_subst, /*aa_seq, len_amm, */ NEUTRAL);
 		}  
 
 
@@ -28279,6 +28305,7 @@ int Get_para(/*int argc, char **argv,*/ char *file_pdb,
   else
 	{
     printf("ERROR Get_para, input file name must be specified\n");
+        printf("Directory in is: %s\n",dir_out); // Miguel (removing warning)
     help();
 	}
 
@@ -28391,6 +28418,8 @@ int Read_parameters(char *FILE_IN, char *file_pdb, char *chain,
   if(file_in==NULL){
     fprintf (fpmpi,"ERROR, input file %s does not exist\n", FILE_IN);
     help();
+    fprintf (fpmpi,"Input sequence could be given %s\n", file_seq); // Miguel (removing warning)
+    fprintf (fpmpi,"IT_MAX could be given %ld\n", *IT_MAX); // Miguel (removing warning)
   }
   if (noisy > 2)
   	fprintf (fpmpi,"\n\nReading parameters for the substitution model from %s\n", FILE_IN);
@@ -28845,13 +28874,13 @@ void GetPdbId(char *pdb_file_in, char *pdbid)
         PDB id from a pdb file name, and ressembles
 	quite a lot my "old-and-dirty-Perl" days */
 	
-  int start=0, end=0, i,j,end2=0;
+    int start=0, end=0, i,j; //,end2=0; // Miguel (removing warning)
   for(i=strlen(pdb_file_in)-1;i>=0;i--){
     char *ptr=pdb_file_in+i;
     if (*ptr=='.'){
       end=i-1;
     }else if((*ptr=='/')||(*ptr=='\\')){
-      start=i+1; end2=i-1;
+      start=i+1; //end2=i-1; // Miguel (removing warning)
       break;
     }
   }
@@ -28901,7 +28930,7 @@ short **Contact_matrix (struct residue *seq, int N_res, int *N_cont, char l_cont
 
   Cont_map=Store_map(N_res, seq, num_cont, *N_cont, Contact_list, 1);
 
-  float cont_thr=cont_thr_c;
+  /*float*/ cont_thr=cont_thr_c; // Miguel (removing warning)
   if(l_cont=='a'){cont_thr=cont_thr_a;}
   else if(l_cont=='b'){cont_thr=cont_thr_b;}
   /*fprintf (fpmpi,"Contact type %c, thr= %.2f, %d native contacts\n",
@@ -29274,12 +29303,13 @@ float Print_DG_REM3_NoPrint (double E_nat, double E1, double E2,
 float Compute_Tfreeze_3(float K2, float K3, float SC)
 {
   if(K3>0)return(0);
-  float T=sqrt(K2/SC), T_new, f, f1; int it;
+  float T=sqrt(K2/SC), /*T_new,*/ f, f1; // Miguel (removing warning)
+  int it;
   for(it=0; it<20; it++){
     f=SC*T*T*T-K2*T+2*K3;
     if(fabs(f)<0.0001)break;
     f1=3*SC*T*T-K2;
-    T_new=T-f/f1;
+    //T_new=T-f/f1; // Miguel (removing warning)
   }
   return(T); 
 }
@@ -29325,7 +29355,12 @@ int Get_target(char *file_str, char *name_tar, int *len_tar)
 
       /* Read contact map */
       for(i=0; i<n_cont; i++){
-	fgets(string, sizeof(string), file_in);
+	//fgets(string, sizeof(string), file_in);
+    if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+          {
+              printf("ERROR in fgets\n");
+              exit(1);
+          }
 	sscanf(string,"%d%d",&res1,&res2);
 	cont_list->res1=res1; cont_list->res2=res2; cont_list++;
 	contact[res1][nc[res1]]=res2; nc[res1]++;
@@ -29337,7 +29372,15 @@ int Get_target(char *file_str, char *name_tar, int *len_tar)
       break;
     }else{
       // Other structure; skipped
-      for(i=0; i<n_cont; i++)fgets(string, sizeof(string), file_in);
+      for(i=0; i<n_cont; i++)
+      {
+      //fgets(string, sizeof(string), file_in);
+        if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+          {
+              printf("ERROR in fgets\n");
+              exit(1);
+          }
+      }
     }
   }
   fclose(file_in);
@@ -29503,7 +29546,12 @@ int Read_structures(char *file_prot, struct protein *prot)
   
   N_prot=0;
 
-  fgets(string, sizeof(string), file_in);
+  //fgets(string, sizeof(string), file_in);
+  if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
   while(fgets(string, sizeof(string), file_in)!=NULL){
 
     sscanf(string,"%s%d%d%s", dumm,&length,&n_cont,name);
@@ -29533,7 +29581,12 @@ int Read_structures(char *file_prot, struct protein *prot)
 
     /* Read contact map */
     for(i=0; i<n_cont; i++){
-      fgets(string, sizeof(string), file_in);
+      //fgets(string, sizeof(string), file_in);
+      if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+        {
+            printf("ERROR in fgets\n");
+            exit(1);
+        }
       sscanf(string,"%d%d",&res1,&res2);
       cont_list->res1=res1; cont_list->res2=res2; cont_list++;
       contact[res1][nc[res1]]=res2; nc[res1]++;
@@ -29639,6 +29692,8 @@ int  Compare_amm_dna(char *dna_seq, int len_dna, short *aa_seq, int len_amm,
 	  if (noisy > 2)
       	fprintf (fpmpi,"\nWARNING, different amino acid sequences (between codified from input DNA sequence and pdb): position = %d %c %c", i+1, AMIN_CODE[aa_seq[i]],AMIN_CODE[aa_test[i]] );
       /*fprintf (fpmpi,"  Extracting triplet\n");*/
+        if (len_dna < -1) // Miguel (removing warning)
+            {;}
       Extract_triplet(dna_seq, aa_seq, i, coded_aa, codon);
       nmut++;
     }
@@ -29856,6 +29911,8 @@ int Mutate_seq(char *dna_seq, int len_dna, char **codon, char *coded_aa,
 
   if(*aa_new==-1)return(-1);
   if((*aa_new)==aa_seq[*res_mut])return(1);
+  if (len_nat<-1 || *count<-1 || *seed<-1) // Miguel (removing warning)
+      {;}
 
   return(0);
 }
@@ -29901,6 +29958,8 @@ int Mutate_seq_AA (short *aa_seq, int len_nat, int *countAA, float *rateAA, int 
  /* all mutations are non-synonymous here*/
 
   /*fprintf (fpmpi,"\n->NEW AA: aa_new = %d \n", *aa_new);*/
+  if (*countAA<-1 || *seed<-1) // Miguel (removing warning)
+        {;}
 
   return(0);
 }
@@ -30100,16 +30159,26 @@ int Compute_rates (float *rate, float *freq_nuc, float trans_ratio, char *dna_se
   	for(i=0; i<4; i++) /* A = 0; T = 1; G = 2; C = 3 */
     	{
     	if (i == 0) /* A: AC (0) AG (1) AT (2) */
+            {
 	    	rate[i] = freq_nuc[1]*Rmat[2] + freq_nuc[2]*Rmat[1] + freq_nuc[3]*Rmat[0];
+            }
 		if (i == 1) /* T: AT (2) CT (4) GT (5) */
+            {
 	    	rate[i] = freq_nuc[0]*Rmat[2] + freq_nuc[2]*Rmat[5] + freq_nuc[3]*Rmat[4];
+            }
 		if (i == 2) /* G: AG (1) CG (3) GT (5) */
+            {
 	    	rate[i] = freq_nuc[0]*Rmat[1] + freq_nuc[1]*Rmat[5] + freq_nuc[3]*Rmat[3];
+            }
 		if (i == 3) /* C: AC (0) CG (3) CT (4) */
+            {
 	    	rate[i] = freq_nuc[0]*Rmat[0] + freq_nuc[1]*Rmat[4] + freq_nuc[2]*Rmat[3];
+            }
 
 		if (noisy > 2)
+            {
     		fprintf (fpmpi,"%c= %.3f ", NUC_CODE[i], rate[i]);
+            }
     	}
 	}
 
@@ -30118,16 +30187,26 @@ int Compute_rates (float *rate, float *freq_nuc, float trans_ratio, char *dna_se
   	for(i=0; i<4; i++) /* A = 0; T = 1; G = 2; C = 3 */ /* NRmat: AC (0) CA (1) AG (2) GA (3) AT (4) TA (5) CG (6) GC (7) CT (8) TC (9) GT=1 (10) TG (11) */
     	{
     	if (i == 0) /* A: AC (0) AG (2) AT (4) */
+            {
 	    	rate[i] = freq_nuc[1]*NRmat[4] + freq_nuc[2]*NRmat[2] + freq_nuc[3]*NRmat[0];
+            }
 		if (i == 1) /* T: TA (5) TC (9) TG (11) */
+            {
 	    	rate[i] = freq_nuc[0]*NRmat[5] + freq_nuc[2]*NRmat[11] + freq_nuc[3]*NRmat[9];
+            }
 		if (i == 2) /* G: GA (3) GC (7) GT (10) */
+            {
 	    	rate[i] = freq_nuc[0]*NRmat[3] + freq_nuc[1]*NRmat[10] + freq_nuc[3]*NRmat[7];
+            }
 		if (i == 3) /* C: CA (1) CG (6) CT (8) */
+            {
 	    	rate[i] = freq_nuc[0]*NRmat[1] + freq_nuc[1]*NRmat[8] + freq_nuc[2]*NRmat[6];
+            }
 
 		if (noisy > 2)
+            {
     		fprintf (fpmpi,"%c= %.3f ", NUC_CODE[i], rate[i]);
+            }
     	}
 	}
 
@@ -30498,7 +30577,7 @@ void Print_final_AA (char *name_file, double it_sum,
 		     float TEMP, float s0, int N_pop, double f_ave, double f_dev,
 		     double E_ave, double E_dev, double DG_ave, double DG_dev, float seq_entr, double seq_entr_dev, double Tload_sum, double Tload_dev, 
 		     double Mload_sum, double Mload_dev, int Nload, double num_syn_subst, double num_aa_subst, 
-		     short *aa_seq, int len_amm, int NEUTRAL)
+		     /*short *aa_seq, int len_amm, */ int NEUTRAL)
 {
   FILE *file_out; char name_out[200];
   /*short i, j, i_nuc, nuc_count[4][3], length;*/
@@ -30604,8 +30683,13 @@ void Read_ene_par(char *file_ene, float **interactions)
   
   for(i=0; i<20; i ++){
     float *MAT=interactions[i];
-    fgets(string, sizeof(string), file_in);
-    sscanf(string, 
+    //fgets(string, sizeof(string), file_in);
+    if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+      {
+          printf("ERROR in fgets\n");
+          exit(1);
+      }
+    sscanf(string,
 	   "%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f", 
 	   &MAT[0],&MAT[1],&MAT[2],&MAT[3],&MAT[4],
 	   &MAT[5],&MAT[6],&MAT[7],&MAT[8],&MAT[9],&MAT[10],
@@ -30835,7 +30919,7 @@ int Get_name(char *name, char *name_seq, int N)
 
 /************************* Output_name *************************/
 void Output_name(char *file_name, char *dir_out, char *prot_name,
-		 float TEMP, float S0, int N_pop, float *freq_nuc, char *dirStability, char *file_seq, int NEUTRAL)
+		 float TEMP, /*float S0,*/ int N_pop, float *freq_nuc, char *dirStability, char *file_seq, int NEUTRAL)
 {
   char name[400];
   if(dir_out[0]!='\0'){sprintf(name, "%s/%s", dir_out, prot_name);}
@@ -30852,7 +30936,7 @@ void Output_name(char *file_name, char *dir_out, char *prot_name,
 
 /************************* Output_name_AA *************************/
 void Output_name_AA (char *file_name, char *dir_out, char *prot_name,
-		float TEMP, float S0, int N_pop, char *dirStability, char *file_seq, int NEUTRAL)
+		float TEMP, /*float S0,*/ int N_pop, char *dirStability, char *file_seq, int NEUTRAL)
 {
   char name[400];
   if(dir_out[0]!='\0'){sprintf(name, "%s/%s", dir_out, prot_name);}
@@ -31213,7 +31297,11 @@ int Selection(float fitness, float fitness_old, int N_pop)
   if(fitness<=0)return(0);
   f_ratio= fitness_old / fitness;
   x= (1.-f_ratio)/(1.-pow(f_ratio, N_pop));
-  if(RandomFloating() < x)return(1); return(0);
+  if(RandomFloating() < x)
+    {
+    return(1);
+    }
+  return(0);
 }
 
 
@@ -31365,6 +31453,7 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   float x, y, z;
   char file_name[500];
   int nchains=1, ic, ichain=0, ini_chain=0;
+  unsigned int i2;
   n_atom=0;
 
   /* Open file */
@@ -31372,7 +31461,13 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   Compression=Get_compression(pdb_name); 
   if(Compression){
     sprintf(command, "%s %s > %s\n", PDBCAT, pdb_name, PDBTMP);
-    system(command); strcpy(file_name, PDBTMP);
+    //system(command);
+    if (system(command) == -1) // Miguel (removing warning)
+      {
+          printf("ERROR in system(command)\n");
+          exit(1);
+      }
+    strcpy(file_name, PDBTMP);
   }else{
     sprintf(file_name, "%s", pdb_name); // \0
   }
@@ -31383,9 +31478,10 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   //printf("Reading %s\n", file_name);
 
   // Count chains to read
-  for(i=0; i<sizeof(chain_to_read); i++){
-    nchains=i;
-    if((chain_to_read[i]=='\0')||(chain_to_read[i]==' '))break;
+  // Miguel (removing warning)
+  for(i2=0; i2<sizeof(chain_to_read); i2++){
+    nchains=i2;
+    if((chain_to_read[i2]=='\0')||(chain_to_read[i2]==' '))break;
     /*printf("%c", chain_to_read[i]);*/    
   }
   if(nchains==0)nchains=1;
@@ -31404,7 +31500,9 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
       /* Cofactor or exotic residue */
 
     }else if(strncmp(string,"EXPDTA", 6)==0){
-      if(strncmp(string+10, "NMR", 3)==0)*nmr=1; continue;
+        if(strncmp(string+10, "NMR", 3)==0)
+            {*nmr=1; // Miguel (removing warning)
+            continue;}
       /* NMR structure */
 
     }else if((strncmp(string,"TER",3)==0)&&(N_res>0)){
@@ -31422,7 +31520,9 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
       for(j=0; j<n_exo; j++){
 	if(strncmp(res_exo[j],res_exo[n_exo],3)==0)break;
       }
-      if(j==n_exo)n_exo++; continue;
+      if(j==n_exo)
+        {n_exo++;
+        continue;} // Miguel (removing warning)
  
     }else if(strncmp(string,"ENDMDL", 6)==0){
       break;                                    /* end model */
@@ -31486,7 +31586,8 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
 
     altloc=string[16];
     if(altloc!=' '){
-      if(altloc_sel==' ')altloc_sel=altloc; if(altloc!=altloc_sel)continue;
+        if(altloc_sel==' ') {altloc_sel=altloc;} // Miguel (removing warning)
+        if(altloc!=altloc_sel) {continue;}
     }
 
     if((icode!=icode_old)&&(res_num==res_num_old)){
@@ -31538,7 +31639,13 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
   fclose(file_in);
   if(Verbose)fprintf (fpmpi,"%3d residues\n", N_res);
   if(Compression){
-    sprintf(command, "rm -f %s\n", PDBTMP); system(command);
+    sprintf(command, "rm -f %s\n", PDBTMP);
+    //system(command);
+    if (system(command) == -1) // Miguel (removing warning)
+      {
+          printf("ERROR in system(command)\n");
+          exit(1);
+      }
   }
   return(N_res);
 }
@@ -31572,11 +31679,12 @@ static short Write_residue(char *res_type_old, atom *first_atom, short i_atom,
   /* Check backbone */
   if(het && (i_atom >=3)){
     // If backbone atoms exist: Modified residue
-    int i_N=0, i_CA=0, i_C=0, i;
+    int /*i_N=0,*/ i_CA=0, i_C=0, i; // Miguel (removing warning)
     atom *atom_ptr=first_atom;
     for(i=0; i<i_atom; i++){
       if(strncmp(atom_ptr->name, "N ", 2)==0){
-	i_N=1;
+	//i_N=1; // Miguel (removing warning)
+      ;
       }else if(strncmp(atom_ptr->name, "CA", 2)==0){
 	i_CA=1;
       }else if(strncmp(atom_ptr->name, "C ", 2)==0){
@@ -31690,7 +31798,7 @@ int Get_compression (char *pdb_name)
 /* Simulates the nucleotide substitution process for a given nucleotide */
 void SimulateDataForSite_Nucleotide_RECURSIVE_NET_Pop_Evol (TreeNode *p, int siteNucleotide, int numSites, double m, double kappa, long int *seed, int dataSetNum, char *dirStability)
 	{
-	int			i, k, step, control, NOcontinueNode, doCombineMaterial, pLeft, qLeft;
+	int			i, k, step, /*control,*/ NOcontinueNode, doCombineMaterial, pLeft, qLeft;
 	/*double		ran, cumProb[4], Pij[4][4];
 	double 		a, b, varRate;*/ /* varRate does not make sense here, is not used */
 	double 		branchLength;
@@ -31706,7 +31814,7 @@ void SimulateDataForSite_Nucleotide_RECURSIVE_NET_Pop_Evol (TreeNode *p, int sit
 	b = 0;*/
 	step = 0;
 	k = 0;
-	control = 0;
+	// control = 0; // Miguel (removing warning)
    /* varRate = 1;*/
 	NOcontinueNode = 0;
 	doCombineMaterial = NO;
@@ -32368,7 +32476,7 @@ void SimulateDataForSite_UserTrees_Nt_Pop_Evol (Treetnode *p, int siteNum, int n
 
 void SimulateDataForSite_AA_RECURSIVE_NET_Pop_Evol (TreeNode *p, int siteNucleotide, int numSites, double m, long int *seed, int dataSetNum, char *dirStability)
 	{
-	int			i, k, step, control, NOcontinueNode, doCombineMaterial, pLeft, qLeft;
+	int			i, k, step, /*control,*/ NOcontinueNode, doCombineMaterial, pLeft, qLeft;
 	/*double		ran, cumProb[20], Pij[20][20];
 	double 		a, b;*/
 	double 		branchLength;
@@ -32384,7 +32492,7 @@ void SimulateDataForSite_AA_RECURSIVE_NET_Pop_Evol (TreeNode *p, int siteNucleot
 	b = 0;*/
 	step = 0;
 	k = 0;
-	control = 0;
+	// control = 0; // Miguel (removing warning)
 	NOcontinueNode = 0;
 	doCombineMaterial = NO;
 
@@ -33633,9 +33741,13 @@ int EigenREV (double Root[], double Cijk[])
 
 
 int abyx (double a, double x[], int n)
-{ int i; for (i=0; i<n; x[i]*=a,i++) ; return(0); }
+{ int i;
+    for (i=0; i<n; x[i]*=a,i++) ;
+    return(0); }
 int xtoy (double x[], double y[], int n)
-{ int i; for (i=0; i<n; y[i]=x[i],i++) ; return(0); }
+{ int i;
+    for (i=0; i<n; y[i]=x[i],i++) ;
+    return(0); }
 int matinv( double x[], int n, int m, double space[])
 {
 /* x[n*m] ... m>=n
@@ -33874,14 +33986,14 @@ int cmatinv( complex x[], int n, int m, double space[])
 */
   int i,j,k, *irow=(int*) space;
   double xmaxsize, ee=1e-20;
-  complex xmax, t,t1;
+  complex /*xmax,*/ t,t1; // Miguel (removing warning)
 
   FOR(i,n) {
       xmaxsize = 0.;
       for (j=i; j<n; j++) {
          if ( xmaxsize < csize (x[j*m+i])) {
               xmaxsize = csize (x[j*m+i]);
-              xmax = x[j*m+i];
+              //xmax = x[j*m+i]; // Miguel (removing warning)
               irow[i] = j;
          }
       }
@@ -37932,10 +38044,10 @@ static void PrintAncestralSequences_C (/*int replicate*/)
 /* Prints just GMRCA files for nucleotide Model */
 static void PrintOutMRCAFiles (/*int replicate*/)
 {
-int		 i, j, a, m, dem, outgroupLabel, rootLabel;
+int		 i, j, a, m, /*dem, outgroupLabel,*/ rootLabel; // Miguel (removing warning)
 	TreeNode	*f;
-	dem = 0;
-	outgroupLabel = rootLabel = 0;
+	//dem = 0; // Miguel (removing warning)
+	/*outgroupLabel =*/ rootLabel = 0;
 
 	if (numRE == 0) /* There are NOT recombinations */
 		{
@@ -37948,9 +38060,14 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 				f = nodes + m;
 				/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 				if (f->class == 2)
-					outgroupLabel = f->label;
+                    {
+					// outgroupLabel = f->label; // Miguel (removing warning)
+                    ;
+                    }
 				if (f->class == 5)
+                    {
 					rootLabel = f->label;
+                    }
 				}
 			}
 		else
@@ -38035,7 +38152,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if ((f->label == i) && (f->index <= numSequences*2-2)) 
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop; // Miguel (removing warning)
 								break;
 								}
 							}
@@ -38043,20 +38160,20 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if (f->class == 5)
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop; // Miguel (removing warning)
 								break;
 								}
 							}
 						else if (i == numSequences) /* outgroup */
 							{
-							dem = 0;
+							// dem = 0; // Miguel (removing warning)
 							break;
 							}
 						else /* ancestral */
 							{
 							if (f->label == i-1)
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop; // Miguel (removing warning)
 								if (f->class != 4)
 									{
 									fprintf (stderr, "\n Warning in PrintAncestralSequences_C. f->label = %d, f->class = %d \n", f->label, f->class);
@@ -38105,7 +38222,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if ((f->label == i) && (f->index <= numSequences*2-2)) 
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop; // Miguel (removing warning)
 								break;
 								}
 							}
@@ -38113,7 +38230,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if (f->class == 5)
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop; // Miguel (removing warning)
 								break;
 								}
 							}
@@ -38121,7 +38238,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if (f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop; // Miguel (removing warning)
 								if (f->class != 4)
 									{
 									fprintf (stderr, "\n Warning in PrintAncestralSequences_C. f->label = %d, f->class = %d \n", f->label, f->class);
@@ -38169,7 +38286,10 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 					f = nodes + m;
 					/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 					if (f->class == 2)
-						outgroupLabel = f->label;
+                        {
+                        //outgroupLabel = f->label; // Miguel (removing warning)
+                        ;
+                        }
 					if (f->class == 5)
 						rootLabel = f->label;
 					}		
@@ -38263,9 +38383,14 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 					f = nodes + m;
 					/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 					if (f->class == 2)
-						outgroupLabel = f->label;
+                        {
+						//outgroupLabel = f->label; // Miguel (removing warning)
+                        ;
+                        }
 					if (f->class == 5)
+                        {
 						rootLabel = f->label;
+                        }
 					}	
 
 				for (i=0; i<2*numSequences; i++)
@@ -38288,7 +38413,8 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 						if (f->index < numSequences /*|| i == 2*numSequences-1*/)
 							if (f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop; // Miguel (removing warning)
+                                    
 								/*if (i == 2*numSequences-1)
 									fprintf(stderr,"\n\n ****** f->label = %d,    f->NetIndex = %d,    f->indexOldMigPop = %d     \n", f->label, f->NetIndex, f->indexOldMigPop);*/
 								break;
@@ -38360,7 +38486,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 						if (f->index < numSequences /*|| i == 2*numSequences-1*/)
 							if ( f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop; // Miguel (removing warning)
 								/*if (i == 2*numSequences-1)
 									fprintf(stderr,"\n\n ****** f->label = %d,    f->NetIndex = %d,    f->indexOldMigPop = %d     \n", f->label, f->NetIndex, f->indexOldMigPop);*/
 								break;
@@ -38417,9 +38543,9 @@ static void PrintOutMRCAFiles_Conc ()
 
 	/*char 	MRCAseq_Array[numNuc];*/
 	/*int  	codon[3];*/
-	int nucPosition, thisLabel, valueNuc, sss;
+	int /*nucPosition,*/ thisLabel, valueNuc, sss;
 
-	nucPosition = 0;	
+	// nucPosition = 0; // Miguel (removing warning)
 
 	MRCAseq_Array = (char *) calloc((numNuc+1), sizeof(char)); 
 	if (!MRCAseq_Array)
@@ -38483,10 +38609,10 @@ static void PrintOutMRCAFiles_Conc ()
 /* Prints just GMRCA files for amino acid Model */
 static void PrintOutMRCAFiles_AA (/*int replicate*/)
 {
-int		 i, j, a, m, dem, outgroupLabel, rootLabel;
+int		 i, j, a, m, /*dem, outgroupLabel,*/ rootLabel; // Miguel (removing warning)
 	TreeNode	*f;
-	dem = 0;
-	outgroupLabel = rootLabel = 0;
+	/*dem = 0;
+	outgroupLabel =*/ rootLabel = 0;
 
 	if (numRE == 0) /* There are NOT recombinations */
 		{
@@ -38499,9 +38625,14 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 				f = nodes + m;
 				/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 				if (f->class == 2)
-					outgroupLabel = f->label;
+                    {
+                    ;
+                    //outgroupLabel = f->label;
+                    }
 				if (f->class == 5)
+                    {
 					rootLabel = f->label;
+                    }
 				}
 			}
 		else
@@ -38586,7 +38717,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if ((f->label == i) && (f->index <= numSequences*2-2)) 
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
@@ -38594,20 +38725,20 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if (f->class == 5)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
 						else if (i == numSequences) /* outgroup */
 							{
-							dem = 0;
+							//dem = 0;
 							break;
 							}
 						else /* ancestral */
 							{
 							if (f->label == i-1)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								if (f->class != 4)
 									{
 									fprintf (stderr, "\n Warning in PrintAncestralSequences_C. f->label = %d, f->class = %d \n", f->label, f->class);
@@ -38656,7 +38787,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if ((f->label == i) && (f->index <= numSequences*2-2)) 
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
@@ -38664,7 +38795,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if (f->class == 5)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
@@ -38672,7 +38803,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 							{
 							if (f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								if (f->class != 4)
 									{
 									fprintf (stderr, "\n Warning in PrintAncestralSequences_C. f->label = %d, f->class = %d \n", f->label, f->class);
@@ -38720,9 +38851,14 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 					f = nodes + m;
 					/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 					if (f->class == 2)
-						outgroupLabel = f->label;
+                        {
+                        ;
+						//outgroupLabel = f->label;
+                        }
 					if (f->class == 5)
+                        {
 						rootLabel = f->label;
+                        }
 					}		
 
 
@@ -38814,9 +38950,14 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 					f = nodes + m;
 					/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 					if (f->class == 2)
-						outgroupLabel = f->label;
+                        {
+                        ;
+						//outgroupLabel = f->label;
+                        }
 					if (f->class == 5)
+                        {
 						rootLabel = f->label;
+                        }
 					}	
 
 				for (i=0; i<2*numSequences; i++)
@@ -38839,7 +38980,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 						if (f->index < numSequences /*|| i == 2*numSequences-1*/)
 							if (f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								// dem = f->indexOldMigPop;
 								/*if (i == 2*numSequences-1)
 									fprintf(stderr,"\n\n ****** f->label = %d,    f->NetIndex = %d,    f->indexOldMigPop = %d     \n", f->label, f->NetIndex, f->indexOldMigPop);*/
 								break;
@@ -38911,7 +39052,7 @@ int		 i, j, a, m, dem, outgroupLabel, rootLabel;
 						if (f->index < numSequences /*|| i == 2*numSequences-1*/)
 							if ( f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								/*if (i == 2*numSequences-1)
 									fprintf(stderr,"\n\n ****** f->label = %d,    f->NetIndex = %d,    f->indexOldMigPop = %d     \n", f->label, f->NetIndex, f->indexOldMigPop);*/
 								break;
@@ -38968,9 +39109,9 @@ static void PrintOutMRCAFiles_AA_Conc ()
 
 	/*char 	MRCAseq_Array[numNuc];*/
 	/*int  	codon[3];*/
-	int nucPosition, thisLabel, valueNuc, sss;
+	int /*nucPosition,*/ thisLabel, valueNuc, sss;
 
-	nucPosition = 0;	
+	// nucPosition = 0; // Miguel (removing warning)
 
 	MRCAseq_Array = (char *) calloc((numNuc+1), sizeof(char)); 
 	if (!MRCAseq_Array)
@@ -39038,11 +39179,11 @@ static void PrintOutMRCAFiles_AA_Conc ()
 
 static void PrintOutMRCAFiles_C (/*int replicate*/)
 {
-	int		 i, j, k, a, m, dem, outgroupLabel, rootLabel;
+	int		 i, j, k, a, m, /*dem, outgroupLabel,*/ rootLabel; // Miguel (removing warning)
 	char codon[3];
 	TreeNode	*f;
-	dem = 0;
-	outgroupLabel = rootLabel = 0;	
+	/*dem = 0;
+	outgroupLabel =*/ rootLabel = 0;
 
 	if (numRE == 0) /* There are NOT recombinations */
 		{
@@ -39055,9 +39196,14 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 				f = nodes + m;
 				/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 				if (f->class == 2)
-					outgroupLabel = f->label;
+                    {
+					// outgroupLabel = f->label; // Miguel (removing warning)
+                    ;
+                    }
 				if (f->class == 5)
+                    {
 					rootLabel = f->label;
+                    }
 				}
 			}
 		else
@@ -39157,7 +39303,7 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 							{
 							if ((f->label == i) && (f->index <= numSequences*2-2)) 
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop; // Miguel (removing warning)
 								break;
 								}
 							}
@@ -39165,20 +39311,20 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 							{
 							if (f->class == 5)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
 						else if (i == numSequences) /* outgroup */
 							{
-							dem = 0;
+							//dem = 0;
 							break;
 							}
 						else /* ancestral */
 							{
 							if (f->label == i-1)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								if (f->class != 4)
 									{
 									fprintf (stderr, "\n Warning in PrintAncestralSequences_C. f->label = %d, f->class = %d \n", f->label, f->class);
@@ -39239,7 +39385,7 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 							{
 							if ((f->label == i) && (f->index <= numSequences*2-2)) 
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
@@ -39247,7 +39393,7 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 							{
 							if (f->class == 5)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								break;
 								}
 							}
@@ -39255,7 +39401,7 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 							{
 							if (f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								if (f->class != 4)
 									{
 									fprintf (stderr, "\n Warning in PrintAncestralSequences_C. f->label = %d, f->class = %d \n", f->label, f->class);
@@ -39315,9 +39461,14 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 					f = nodes + m;
 					/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 					if (f->class == 2)
-						outgroupLabel = f->label;
+                        {
+						//outgroupLabel = f->label; // Miguel (removing warning)
+                        ;
+                        }
 					if (f->class == 5)
+                        {
 						rootLabel = f->label;
+                        }
 					}				
 	
 				for (i=0; i<2*numSequences; i++)
@@ -39423,9 +39574,14 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 					f = nodes + m;
 					/*fprintf (stderr, "\n f->label = %d   f->class = %d \n", f->label, f->class);*/
 					if (f->class == 2)
-						outgroupLabel = f->label;
+                        {
+						// outgroupLabel = f->label; // Miguel (removing warning)
+                        ;
+                        }
 					if (f->class == 5)
+                        {
 						rootLabel = f->label;
+                        }
 					}	
 
 
@@ -39451,7 +39607,7 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 						if (f->index < numSequences /*|| i == 2*numSequences-1*/)
 							if (f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								/*if (i == 2*numSequences-1)
 									fprintf(stderr,"\n\n ****** f->label = %d,    f->NetIndex = %d,    f->indexOldMigPop = %d     \n", f->label, f->NetIndex, f->indexOldMigPop);*/
 								break;
@@ -39534,7 +39690,7 @@ static void PrintOutMRCAFiles_C (/*int replicate*/)
 						if (f->index < numSequences /*|| i == 2*numSequences-1*/)
 							if ( f->label == i)
 								{
-								dem = f->indexOldMigPop;
+								//dem = f->indexOldMigPop;
 								/*if (i == 2*numSequences-1)
 									fprintf(stderr,"\n\n ****** f->label = %d,    f->NetIndex = %d,    f->indexOldMigPop = %d     \n", f->label, f->NetIndex, f->indexOldMigPop);*/
 								break;
@@ -45145,7 +45301,7 @@ static void PrintSequences_UserTrees ()
 static void PrintSequences_Ancestral_UserTrees ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	
 	strcpy(r, "root");		
@@ -45209,7 +45365,7 @@ static void PrintSequences_UserTrees_FASTA ()
 static void PrintSequences_Ancestral_UserTrees_FASTA ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	
 	strcpy(r, "root");		
@@ -45283,7 +45439,7 @@ static void PrintSequences_UserTrees_NEXUS ()
 static void PrintSequences_Ancestral_UserTrees_NEXUS ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	strcpy(r, "root");		
 
@@ -45330,7 +45486,7 @@ static void PrintSequences_Ancestral_UserTrees_NEXUS ()
 static void PrintOutMRCAFiles_userTrees ()
 	{
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	strcpy(r, "root");		
 
@@ -45388,7 +45544,7 @@ static void PrintSequences_UserTrees_AA ()
 static void PrintSequences_Ancestral_UserTrees_AA ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	
 	strcpy(r, "root");		
@@ -45452,7 +45608,7 @@ static void PrintSequences_UserTrees_FASTA_AA ()
 static void PrintSequences_Ancestral_UserTrees_FASTA_AA ()
 {
 	int		 i, j;
-	//char	r[4];
+	//char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
     
 	//strcpy(r, "root");
@@ -45548,7 +45704,7 @@ static void PrintSequences_UserTrees_NEXUS_AA ()
 static void PrintSequences_Ancestral_UserTrees_NEXUS_AA ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	strcpy(r, "root");		
 
@@ -45595,7 +45751,7 @@ static void PrintSequences_Ancestral_UserTrees_NEXUS_AA ()
 static void PrintOutMRCAFiles_userTrees_AA ()
 	{
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	strcpy(r, "root");		
 
@@ -45670,7 +45826,7 @@ static void PrintSequences_UserTrees_Cod ()
 static void PrintSequences_Ancestral_UserTrees_Cod ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	int		k;
 	char codon[3];
@@ -45771,7 +45927,7 @@ static void PrintSequences_UserTrees_FASTA_Cod ()
 static void PrintSequences_Ancestral_UserTrees_FASTA_Cod ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	int		k;
 	char codon[3];
@@ -45882,7 +46038,7 @@ static void PrintSequences_UserTrees_NEXUS_Cod ()
 static void PrintSequences_Ancestral_UserTrees_NEXUS_Cod ()
 {
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	int		k;
 	char codon[3];
@@ -45954,7 +46110,7 @@ static void PrintSequences_Ancestral_UserTrees_NEXUS_Cod ()
 static void PrintOutMRCAFiles_userTrees_Cod ()
 	{
 	int		 i, j;
-	char	r[4];
+	char	r[5]; // Miguel (removing warning)
 	Treetnode *p;
 	int		k;
 	char codon[3];
@@ -47181,16 +47337,16 @@ static void	PrintRunSettings (FILE *filep, long int seed)
 
 
 
-/***************************** PrintRunSettings *******************************/
+/***************************** PrintRunSettings_userTrees *******************************/
 /* Prints a summary of run settings */
 
 static void	PrintRunSettings_userTrees (FILE *filep, long int seed)
 	{
 		int i, j;
-		double stdErrorErep, stdErrGMRCA, stdErrTrep;
+		double /*stdErrorErep,*/ stdErrGMRCA, stdErrTrep;
 
 		
-		stdErrorErep = stdErrGMRCA = stdErrTrep = 0.0;		
+		/*stdErrorErep =*/ stdErrGMRCA = stdErrTrep = 0.0; // Miguel (removing warning)
 
 		/* Anadido Miguel: Para que escriba por la pantalla del master */
 		#ifdef MPI
@@ -48140,14 +48296,14 @@ static void	PrintRunSettings_userTrees (FILE *filep, long int seed)
 /******************** ReadParametersFromCommandLine *************************/
 static void ReadParametersFromCommandLine (int argc,char **argv)
 {
-	int		i, j, k, h, l, modelNumber, RatesNumber;
+	int		i, j, k, h, l, /*modelNumber,*/ RatesNumber;
 	char	flagb, ch;
 	int		to, from; 
  	float	argument;
 	double	sumPi, sumPi_b, sumPi_Cod_first, sumPi_Cod_second, sumPi_Cod_third, sumPi_AA;
 	int		sumPopul, yesHere, GrowthRate_or_DemographicPeriods;
 	
-	modelNumber = -1;
+	//modelNumber = -1; // Miguel (removing warning)
 	yesHere = 0;
 	GrowthRate_or_DemographicPeriods = -1;
 	strcpy(alignmentFile, "sequences");
@@ -49738,7 +49894,7 @@ static void ReadParametersFromCommandLine (int argc,char **argv)
 
 void ReadParametersFromFile()
 {
-	int  	j, i, modelNumber, k, h, l, RatesNumber;
+	int  	j, i, /*modelNumber,*/ k, h, l, RatesNumber;
 	char 	ch;
 	int		to, from, yesHere;
 	double	sumPi, sumPi_b, sumPi_Cod_first, sumPi_Cod_second, sumPi_Cod_third, sumPi_AA;
@@ -49747,7 +49903,7 @@ void ReadParametersFromFile()
 	
 	/* Used: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z ? # @ $ % + * = / _    next ideas _ l */
 	yesHere = 0;
-	modelNumber = -1;
+	//modelNumber = -1; // Miguel (removing warning)
 	GrowthRate_or_DemographicPeriods = -1;
 
 	if(feof(stdin)){
@@ -49829,8 +49985,20 @@ void ReadParametersFromFile()
 						}
 					for (j=1; j<=BBnumOmegaCat; j++)
 						{
-						fscanf(stdin, "%lf", &BBomegaVal[j]);
-						fscanf(stdin, "%lf", &BBomegaProb[j]);
+						//fscanf(stdin, "%lf", &BBomegaVal[j]); // Miguel (removing warning)
+						//fscanf(stdin, "%lf", &BBomegaProb[j]);
+                            
+                        if (fscanf(stdin, "%lf", &BBomegaVal[j]) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
+                        if (fscanf(stdin, "%lf", &BBomegaProb[j]) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
+                            
 
 						if (BBomegaProb[j] > 1 || BBomegaProb[j] < 0)
 							{
@@ -49862,13 +50030,25 @@ void ReadParametersFromFile()
 					{
 					doBBM0 = YES;					
 
-					fscanf(stdin, "%lf", &BBOmegaRateHet);
+					//fscanf(stdin, "%lf", &BBOmegaRateHet); // Miguel (removing warning)
+                    if (fscanf(stdin, "%lf", &BBOmegaRateHet) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
+                        
 					if (BBOmegaRateHet <= 0.0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad heterogeneous rate (%3.2f)\n\n", BBOmegaRateHet);
 						PrintUsage();
 						}
-					fscanf(stdin, "%lf", &BBomega);
+					//fscanf(stdin, "%lf", &BBomega); // Miguel (removing warning)
+                    if (fscanf(stdin, "%lf", &BBomega) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
+                        
 					if (BBomega < 0.0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad heterogeneous rate (%3.2f)\n\n", BBomega);
@@ -49880,14 +50060,26 @@ void ReadParametersFromFile()
 					{
 					doBBM0 = YES;				
 
-					fscanf(stdin, "%lf", &BBM7_p_beta);
+					//fscanf(stdin, "%lf", &BBM7_p_beta);
+                    if (fscanf(stdin, "%lf", &BBM7_p_beta) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
+                        
 					if (BBM7_p_beta < 0.0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad p in beta distribution (%3.2f)\n\n", BBM7_p_beta);
 						PrintUsage();
 						}
 					
-					fscanf(stdin, "%lf", &BBM7_q_beta);
+					//fscanf(stdin, "%lf", &BBM7_q_beta); // Miguel (removing warning)
+                    if (fscanf(stdin, "%lf", &BBM7_q_beta) == -1) // Miguel (removing warning)
+                        {
+                        printf("ERROR in fscanf\n");
+                        exit(1);
+                        }
+                        
 					if (BBM7_q_beta < 0.0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad q in beta distribution (%3.2f)\n\n", BBM7_q_beta);
@@ -49946,11 +50138,23 @@ void ReadParametersFromFile()
 	
 				for (j=0; j<numTipDates; j++)
 					{
-					fscanf(stdin, "%f", &argument);
+                        if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 	        		datedSample[j].time = (float) argument;
-					fscanf(stdin, "%f", &argument);
+                        if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					from = (int) argument;
-					fscanf(stdin, "%f", &argument);
+                        if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
         			to = (int) argument;
 	
 					datedSample[j].member = 	(int *) calloc(to-from+1, sizeof(int));
@@ -50549,8 +50753,13 @@ void ReadParametersFromFile()
 					}
 				else if (freqNumber == 12) 
 					{
-					fscanf(stdin, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &p_i_codon[0], &p_i_codon[1], &p_i_codon[2], &p_i_codon[3], 
-					&p_i_codon[4], &p_i_codon[5], &p_i_codon[6], &p_i_codon[7], &p_i_codon[8], &p_i_codon[9], &p_i_codon[10], &p_i_codon[11]);
+					//fscanf(stdin, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &p_i_codon[0], &p_i_codon[1], &p_i_codon[2], &p_i_codon[3], &p_i_codon[4], &p_i_codon[5], &p_i_codon[6], &p_i_codon[7], &p_i_codon[8], &p_i_codon[9], &p_i_codon[10], &p_i_codon[11]); // Miguel (removing warning)
+                        
+                        if (fscanf(stdin, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &p_i_codon[0], &p_i_codon[1], &p_i_codon[2], &p_i_codon[3], &p_i_codon[4], &p_i_codon[5], &p_i_codon[6], &p_i_codon[7], &p_i_codon[8], &p_i_codon[9], &p_i_codon[10], &p_i_codon[11]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 						
 					for (i = 0; i < 12; i++)
 						if (p_i_codon[i] < 0 || p_i_codon[i] > 1)
@@ -50595,9 +50804,13 @@ void ReadParametersFromFile()
 					}
 				else if (freqNumber == 20) /* amino acid model: p_i_aa */
 					{
-					fscanf(stdin, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &p_i_aa[0], &p_i_aa[1], &p_i_aa[2], &p_i_aa[3], 
-						&p_i_aa[4], &p_i_aa[5], &p_i_aa[6], &p_i_aa[7], &p_i_aa[8], &p_i_aa[9], &p_i_aa[10], &p_i_aa[11], &p_i_aa[12], &p_i_aa[13], 
-						&p_i_aa[14], &p_i_aa[15], &p_i_aa[16], &p_i_aa[17], &p_i_aa[18], &p_i_aa[19]);
+					// fscanf(stdin, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &p_i_aa[0], &p_i_aa[1], &p_i_aa[2], &p_i_aa[3], &p_i_aa[4], &p_i_aa[5], &p_i_aa[6], &p_i_aa[7], &p_i_aa[8], &p_i_aa[9], &p_i_aa[10], &p_i_aa[11], &p_i_aa[12], &p_i_aa[13], &p_i_aa[14], &p_i_aa[15], &p_i_aa[16], &p_i_aa[17], &p_i_aa[18], &p_i_aa[19]); // Miguel (removing warning)
+                        
+                        if (fscanf(stdin, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &p_i_aa[0], &p_i_aa[1], &p_i_aa[2], &p_i_aa[3], &p_i_aa[4], &p_i_aa[5], &p_i_aa[6], &p_i_aa[7], &p_i_aa[8], &p_i_aa[9], &p_i_aa[10], &p_i_aa[11], &p_i_aa[12], &p_i_aa[13], &p_i_aa[14], &p_i_aa[15], &p_i_aa[16], &p_i_aa[17], &p_i_aa[18], &p_i_aa[19]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					
 					
 					if (freqNumber != 20)
@@ -50903,7 +51116,12 @@ void ReadParametersFromFile()
 					}
 
 				/* multiple aligment files (0-1) */	
-				fscanf(stdin, "%d", &yesHere);
+				// fscanf(stdin, "%d", &yesHere); // Miguel (removing warning)
+                if (fscanf(stdin, "%d", &yesHere) == -1) // Miguel (removing warning)
+                    {
+                        printf("ERROR in fscanf\n");
+                        exit(1);
+                    }
 				if (yesHere < 0 || yesHere > 1)
 					{
 					fprintf (stderr, "PARAMETER ERROR: Bad print multiple aligment files option (0:no or 1:yes) (%d)\n\n", yesHere);
@@ -50915,7 +51133,12 @@ void ReadParametersFromFile()
 				
 				/* print ancestral states */
 				yesHere = 0;
-				fscanf(stdin, "%d", &yesHere);
+				// fscanf(stdin, "%d", &yesHere); // Miguel (removing warning)
+                if (fscanf(stdin, "%d", &yesHere) == -1) // Miguel (removing warning)
+                    {
+                        printf("ERROR in fscanf\n");
+                        exit(1);
+                    }
 				if (yesHere < 0 || yesHere > 1)
 					{
 					fprintf (stderr, "PARAMETER ERROR: Bad print ancestral states  option (0:no or 1:yes) (%d)\n\n", yesHere);
@@ -51096,7 +51319,12 @@ void ReadParametersFromFile()
 					{
 					/*doDemographics = YES;*/
 					
-					fscanf(stdin, "%d", &numPeriods);
+					// fscanf(stdin, "%d", &numPeriods); // Miguel (removing warning)
+                    if (fscanf(stdin, "%d", &numPeriods) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					if (numPeriods < 0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad number of periods (%d)\n\n", numPeriods);
@@ -51118,11 +51346,23 @@ void ReadParametersFromFile()
 							}
 						for (j=1; j<=numPeriods; j++)
 							{
-							fscanf(stdin, "%f", &argument);
+                                if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                                {
+                                    printf("ERROR in fscanf\n");
+                                    exit(1);
+                                }
 							Nbegin[j] = (int) argument;
-							fscanf(stdin, "%f", &argument);
+                                if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                                {
+                                    printf("ERROR in fscanf\n");
+                                    exit(1);
+                                }
 							Nend[j] = (int) argument;
-							fscanf(stdin, "%f", &argument);
+                                if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                                {
+                                    printf("ERROR in fscanf\n");
+                                    exit(1);
+                                }
 							cumDuration[j] = (int) argument + cumDuration[j-1];
 							}
 						}
@@ -51148,7 +51388,12 @@ void ReadParametersFromFile()
 					{
 					doMigRatePeriods = NO;
 					
-					fscanf(stdin, "%lf", &migrationRate);
+					//fscanf(stdin, "%lf", &migrationRate); // Miguel (removing warning)
+                    if (fscanf(stdin, "%lf", &migrationRate) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					if (migrationRate <= 0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad migration rate (should be higher than 0) (%lf)\n\n", migrationRate);
@@ -51169,7 +51414,11 @@ void ReadParametersFromFile()
 					
 					for (j=1; j<=numMigRatePeriods-1; j++)
 						{
-						fscanf(stdin, "%f", &argument);
+                            if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
 						MigTbegin[j] = (int) argument;
 						if (MigTbegin[j] <= 0)
 							{
@@ -51179,7 +51428,11 @@ void ReadParametersFromFile()
 						}
 					for (j=1; j<=numMigRatePeriods; j++)
 						{
-						fscanf(stdin, "%f", &argument);
+                            if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
 						periodMigrationRate[j] = (double) argument;
 						if (periodMigrationRate[j] < 0)
 							{
@@ -51216,7 +51469,12 @@ void ReadParametersFromFile()
 					}
 				for (j=1; j<=numPopulations; j++)
 					{
-					fscanf(stdin, "%d", &initPopulation[j]);
+                    // fscanf(stdin, "%d", &initPopulation[j]); // Miguel (removing warning)
+                    if (fscanf(stdin, "%d", &initPopulation[j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					if (initPopulation[j] > numSequences || initPopulation[j] <= 0)
 						{
 						fprintf (stderr, "PARAMETER ERROR: Bad initial subpopulation (%d)\n\n", initPopulation[j]);
@@ -51268,11 +51526,23 @@ void ReadParametersFromFile()
 					{
 					for (j=1; j<=numConvergDemes; j++)
 						{
-						fscanf(stdin, "%f", &argument);
+                            if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
 						deme_a_old[j] = (int) argument;
-						fscanf(stdin, "%f", &argument);
+                            if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
 						deme_b_old[j] = (int) argument;
-						fscanf(stdin, "%f", &argument);
+                            if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
 						convDemTimes_old[j] = (double) argument;
 						}
 					for (j=1; j<=numConvergDemes; j++)
@@ -51463,7 +51733,7 @@ void ReadEAAMfromFile()
 {
 	int  	j;
 	char 	ch;
-	float argument;
+	//float argument; // Miguel (removing warning)
 	
 	/* Used: A R N D C Q E G H I L K M F P S T W Y V    Z */
 
@@ -51488,134 +51758,240 @@ void ReadEAAMfromFile()
 
 	while(!feof(stdin))
 		{
-		argument = 0;
+		//argument = 0; // Miguel (removing warning)
 		ch=toupper(ch);
 		switch (ch) 
 			{
 			case 'A':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[0][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[0][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[0][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
+                    
 					}
 			break;
 			case 'R':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[1][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[1][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[1][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'N':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[2][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[2][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[2][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'D':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[3][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[3][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[3][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'C':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[4][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[4][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[4][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'Q':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[5][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[5][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[5][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'E':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[6][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[6][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[6][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'G':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[7][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[7][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[7][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'H':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[8][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[8][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[8][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'I':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[9][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[9][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[9][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'L':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[10][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[10][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[10][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'K':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[11][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[11][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[11][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'M':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[12][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[12][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[12][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'F':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[13][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[13][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[13][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'P':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[14][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[14][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[14][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'S':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[15][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[15][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[15][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'T':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[16][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[16][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[16][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'W':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[17][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[17][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[17][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'Y':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[18][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[18][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[18][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'V':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &Qij_AAuser[19][j]);
+					//fscanf(stdin, "%lf", &Qij_AAuser[19][j]);
+                    if (fscanf(stdin, "%lf", &Qij_AAuser[19][j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case 'Z':
 				for (j=0; j<NUMAA; j++)
 					{
-					fscanf(stdin, "%lf", &FreqsAAUser[j]);
+					//fscanf(stdin, "%lf", &FreqsAAUser[j]);
+                    if (fscanf(stdin, "%lf", &FreqsAAUser[j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case '?':
@@ -51651,7 +52027,7 @@ void ReadECMfromFile()
 {
 	int  	i, j;
 	char 	ch;
-	float argument;
+	// float argument; // Miguel (removing warning)
 	
 	/*fprintf(stderr, "\n In ReadECMfromFile \n");*/
 
@@ -51677,7 +52053,7 @@ void ReadECMfromFile()
 
 	while(!feof(stdin))
 		{
-		argument = 0;
+		// argument = 0; // Miguel (removing warning)
 		ch=toupper(ch);
 		switch (ch) 
 			{
@@ -51687,13 +52063,23 @@ void ReadECMfromFile()
 					for (j=0; j<NUMCOD; j++)
 						{
 						/* this must be corrected: miguel */
-						fscanf(stdin, "%lf", &Qij_CodUser[i][j]);
+						// fscanf(stdin, "%lf", &Qij_CodUser[i][j]); // Miguel (removing warning)
+                        if (fscanf(stdin, "%lf", &Qij_CodUser[i][j]) == -1) // Miguel (removing warning)
+                            {
+                                printf("ERROR in fscanf\n");
+                                exit(1);
+                            }
 						}
 			break;
 			case 'Z':
 				for (j=0; j<NUMCOD; j++)
 					{
-					fscanf(stdin, "%lf", &FreqsCodUser[j]);
+					// fscanf(stdin, "%lf", &FreqsCodUser[j]); // Miguel (removing warning)
+                    if (fscanf(stdin, "%lf", &FreqsCodUser[j]) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					}
 			break;
 			case '?':
@@ -51905,7 +52291,11 @@ void ReadHetVectorfromFile()
 				/*fprintf (stderr, "\n Vector:\n");*/
 				for (j=0; j<numSites; j++)
 					{
-					fscanf(stdin, "%f", &argument);
+                        if (fscanf(stdin, "%f", &argument) == -1) // Miguel (removing warning)
+                        {
+                            printf("ERROR in fscanf\n");
+                            exit(1);
+                        }
 					vectorHetRates[j] = (double) argument;
 					if (vectorHetRates[j] < 0 || vectorHetRates[j] > 1)
 						{
@@ -52537,15 +52927,15 @@ void ReadUntil(FILE *fv, char stopChar, char *what)
 /***************************** PrintTitle *******************************/
 /* Prints program header */
 
-static void PrintTitle(FILE *filep)
+/*static void PrintTitle(FILE *filep)
 {
-	FILE *file;
-	file = filep;
+	//FILE *file;
+	//file = filep; // Miguel (removing warning)
 	fprintf(filep,"%s - Simulation of protein evolution accouting for structural stability and under diverse evolutionary scenarios", PROGRAM_NAME);
 	fprintf(filep, "\nVersion %s", VERSION_NUMBER);
 	fprintf(filep, "\nWritten by Miguel Arenas (miguelmmmab@gmail.com), David Posada (dposada@uvigo.es) and Ugo Bastolla (ubastolla@cbm.uam.es)");
 	fprintf(filep,"\n__________________________________________________________________________________________________________________________\n\n");
-}
+}*/
 
 
 
@@ -52706,17 +53096,17 @@ static void PrintUsage()
 /***************************** PrintDate *******************************/
 /* Prints date and time */
 
-static void PrintDate (FILE *filep)
+/*static void PrintDate (FILE *filep)
 {
-	char *date;				/* define date */
+	char *date;
 	time_t now;
-	FILE *file;
-	file = filep;		/* define */
+	//FILE *file;
+	//file = filep; // Miguel (removing warning)
 	
 	now=time(NULL);
 	date= ctime(&now);
 	fprintf(filep,"%s\n",date);
-}
+}*/
 
 
 
@@ -53121,12 +53511,12 @@ return (0);
 /** Broken Codons **/
 /************** recSegmentsGeneratesLeftBrokenCodon ****************/
 /* It builds the new segments on the left of the breakpoint */
-static int		recSegmentsGeneratesLeftBrokenCodon(int nodeValue, TreeSegment *s, TreeSegment *n, int numNuc, int whichSite, int LeftLess, int RightHigh, int *actSegIndex)
+static int		recSegmentsGeneratesLeftBrokenCodon(int nodeValue, TreeSegment *s, TreeSegment *n, int numNuc, int whichSite, /*int LeftLess,*/ int RightHigh, int *actSegIndex) // Miguel (removing warning)
 {
 	int breakp;
-	int HereLeftLess, HereRightHigh;
+	int /*HereLeftLess,*/ HereRightHigh;
 
-	HereLeftLess = LeftLess;
+	//HereLeftLess = LeftLess; // Miguel (removing warning)
 	HereRightHigh = RightHigh;
 
 	breakp = whichSite;
@@ -53297,13 +53687,13 @@ return (0);
 /************** recSegmentsGeneratesRightBrokenCodon ****************/
 /* It builds the new segments on the right of the breakpoint */
 
-static int		recSegmentsGeneratesRightBrokenCodon(int nodeValue, TreeSegment *s, TreeSegment *m, int numNuc, int whichSite, int LeftLess, int RightHigh, int *actSegIndex)
+static int		recSegmentsGeneratesRightBrokenCodon(int nodeValue, TreeSegment *s, TreeSegment *m, int numNuc, int whichSite, int LeftLess, /*int RightHigh,*/ int *actSegIndex) // Miguel (removing warning)
 {
 	int breakp;
-	int HereLeftLess, HereRightHigh;
+    int HereLeftLess; //, HereRightHigh; // Miguel (removing warning)
 	
 	HereLeftLess = LeftLess;
-	HereRightHigh = RightHigh;
+	//HereRightHigh = RightHigh; // Miguel (removing warning)
 
 	breakp = whichSite;
 

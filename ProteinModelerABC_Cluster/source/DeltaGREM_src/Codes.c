@@ -68,15 +68,33 @@ void Read_nuc_freq(char *file_nuc_freq, float *freq_nuc,
 
   printf("Reading stationary nucleotide frequencies in %s\n",file_nuc_freq);
   for(i=0; i<4; i++){
-    fgets(string, sizeof(string), file_in);
+    
+    if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+      {
+          printf("ERROR in fgets\n");
+          exit(1);
+      }
+      
     sscanf(string, "%s %f", nuc, &f);
     freq_nuc[Code_nuc(nuc[0])]=f; sum+=f;
     //printf("%c %.3f\n", nuc[0], f);
   }
-  fgets(string, sizeof(string), file_in);
+  
+  if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
+    
   sscanf(string, "%f", trans_ratio);
   //printf("Transition-transversion ratio = %.1f\n", *trans_ratio);
-  fgets(string, sizeof(string), file_in);
+    
+  if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
+    
   sscanf(string, "%f", mut_rate);
   //printf("Mutation rate = %.2g\n", *mut_rate);
   fclose(file_in);
@@ -96,14 +114,26 @@ void Read_mut_mat(char *file_mut_mat, float **nuc_mut_mat)
   char string[200], nuc[4][3];
 
   printf("Reading mutation matrix in %s\n", file_mut_mat);
-  fgets(string, sizeof(string), file_in);
+    
+  if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
+    
   sscanf(string, "%s%s%s%s", nuc[0], nuc[1], nuc[2], nuc[3]);
   for(i=0; i<4; i++){
     i_nuc[i]=Code_nuc(nuc[i][0]); printf("%s ", nuc[i]);
   }
   printf("\n");
   for(line=0; line<4; line++){
-    fgets(string, sizeof(string), file_in);
+      
+    if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+      {
+          printf("ERROR in fgets\n");
+          exit(1);
+      }
+      
     sscanf(string, "%s %f%f%f%f", nuc[0], &f[0], &f[1], &f[2], &f[3]);
     j=Code_nuc(nuc[0][0]);
     if(j!=i_nuc[line]){
@@ -115,7 +145,13 @@ void Read_mut_mat(char *file_mut_mat, float **nuc_mut_mat)
     }
     printf("\n");
   }
-  fgets(string, sizeof(string), file_in);
+    
+  if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
+    
   sscanf(string, "%f", &rate);
   fclose(file_in);
 

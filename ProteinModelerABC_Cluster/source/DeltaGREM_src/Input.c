@@ -47,7 +47,13 @@ void Read_hydro_list(char *file_hydro, char *hydro_name, float *hydro)
     if(strncmp(name, hydro_name, 3)==0){
       printf("Scale: %s\n", hydro_name);
       for(i=0; i<20; i++){
-	fgets(string, sizeof(string), file_in);
+          
+    if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+          {
+              printf("ERROR in fgets\n");
+              exit(1);
+          }
+          
 	sscanf(string, "%c%f", &amm, &h);
 	ia=Code_AA(amm); hydro[ia]=h;
 	if(ia<0){
@@ -58,7 +64,14 @@ void Read_hydro_list(char *file_hydro, char *hydro_name, float *hydro)
       fclose(file_in);
       return;
     }else{
-      for(i=0; i<21; i++)fgets(string, sizeof(string), file_in);
+      for(i=0; i<21; i++)
+      {
+        if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+          {
+              printf("ERROR in fgets\n");
+              exit(1);
+          }
+      }
     }
   }
 

@@ -988,6 +988,8 @@ float Compute_DG_overT_contfreq(struct REM *E,
   //printf("DBG: E_loc computed\n");
 
   int i, j;
+  VBS=VBS*1; // Miguel (removing warning)
+    
   for(i=0; i<L; i++){
     if(aa_seq[i]<0)continue;
     float *U=Econt_T[aa_seq[i]];
@@ -1335,7 +1337,11 @@ int **Get_target(char *file_str, char *name_tar, int *len_tar)
 
       /* Read contact map */
       for(i=0; i<n_cont; i++){
-	fgets(string, sizeof(string), file_in);
+        if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+            {
+            printf("ERROR in fgets\n");
+            exit(1);
+            }
 	sscanf(string,"%d%d",&res1,&res2);
 	cont_list->res1=res1; cont_list->res2=res2; cont_list++;
 	contact[res1][nc[res1]]=res2; nc[res1]++;
@@ -1346,7 +1352,14 @@ int **Get_target(char *file_str, char *name_tar, int *len_tar)
       break;
     }else{
       // Other structure; skipped
-      for(i=0; i<n_cont; i++)fgets(string, sizeof(string), file_in);
+      for(i=0; i<n_cont; i++)
+            {
+            if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+                {
+                printf("ERROR in fgets\n");
+                exit(1);
+                }
+            }
     }
   }
   fclose(file_in);
@@ -1564,8 +1577,15 @@ int Read_structures(char *file_prot, struct protein *prot)
   struct contact *cont_list; short **contact, nc[L_MAX];
   
   N_prot=0;
-
-  fgets(string, sizeof(string), file_in);
+    
+  if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+    {
+        printf("ERROR in fgets\n");
+        exit(1);
+    }
+    
+    
+    
   while(fgets(string, sizeof(string), file_in)!=NULL){
 
     sscanf(string,"%s%d%d%s", dumm,&length,&n_cont,name);
@@ -1603,7 +1623,13 @@ int Read_structures(char *file_prot, struct protein *prot)
 
     /* Read contact map */
     for(i=0; i<n_cont; i++){
-      fgets(string, sizeof(string), file_in);
+        
+     if (fgets(string, sizeof(string), file_in) == NULL) // Miguel (removing warning)
+        {
+        printf("ERROR in fgets\n");
+        exit(1);
+        }
+        
       sscanf(string,"%d%d",&res1,&res2);
       cont_list->res1=res1; cont_list->res2=res2; cont_list++;
       contact[res1][nc[res1]]=res2; nc[res1]++;

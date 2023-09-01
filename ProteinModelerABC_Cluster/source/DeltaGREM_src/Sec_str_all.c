@@ -185,7 +185,7 @@ int Read_sec_str(struct secondary *sec_str, int *N_sec_str, char *string,
 		 char chain, char *chain_to_read, char type)
 {
   if(*chain_to_read!='*'){
-    for(int i=0; i<sizeof(chain_to_read); i++)
+    for(unsigned int i=0; i<sizeof(chain_to_read); i++) // Miguel (removing warning)
       if(chain==chain_to_read[i])goto read;
     return(0);
   }

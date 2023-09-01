@@ -515,7 +515,6 @@ void Print_result(struct result *r, double *DDG_1, double *DDG_2, int *n,
   if(r->n>1)s=sqrt(s/(r->n-1));
   float fit=-log(1+exp(r->DeltaG_min));
 
-
   fprintf(file_out, "%3d", r->L);
   if(DG_wt==0){ // wild type
     fprintf(file_out, "\t%.4f", r->DeltaG_min/r->L);
@@ -540,6 +539,7 @@ void Print_result(struct result *r, double *DDG_1, double *DDG_2, int *n,
   }
   fprintf(file_out, "\t%s", name_pdb[r->pdbbest]);
   fprintf(file_out, "\t%s", name);
+  fprintf(file_out, "\t%6.3f \t%6.3f", hydro_wt, fit_wt); // Miguel (removing warning)
   fprintf(file_out, "\n");
 }
 

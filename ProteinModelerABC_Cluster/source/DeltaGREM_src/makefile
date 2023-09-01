@@ -33,7 +33,7 @@ OBJ=main_DeltaGREM.o REM.o random3.o Get_pars_DeltaGREM.o alignments.o \
 	read_pdb.o read.o Sec_str_all.o NeedlemanWunsch.o Profit_aux.o  
 
 # Compiler flags
-CC=gcc
+CC=gcc -w
 # CFLAGS= -O2
 CFLAGS= -O2 -Wall -std=c99 -pedantic -g -pg -D_FILE_OFFSET_BITS=64 -D_LARGE_FILE_SOURCE
 # -fbounds-check
@@ -43,22 +43,22 @@ LDFLAGS=-lm -L/usr/lib64/libg2c.so.0.0.0
 all: $(OBJ)
 	$(CC) $(OBJ) -o $(PROG) $(LDFLAGS)
 
-gnu: CC=gcc
+gnu: CC=gcc -w
 gnu: LDFLAGS=-lm -lg2c
 gnu: CFLAGS=-Wall -O3 -march=nocona -D_FILE_OFFSET_BITS=64 -D_LARGE_FILE_SOURCE
 gnu: all
 
-gnu-static: CC=gcc
+gnu-static: CC=gcc -w
 gnu-static: LDFLAGS=-lm -lg2c -static
 gnu-static: CFLAGS=-Wall -O3 -march=nocona -D_FILE_OFFSET_BITS=64 -D_LARGE_FILE_SOURCE
 gnu-static: all
 
-intel: CC=icc
+intel: CC=icc -w
 intel: LDFLAGS=-lm
 intel: CFLAGS=-Wall -static -O3 -xHOST -ipo -D_FILE_OFFSET_BITS=64 -D_LARGE_FILE_SOURCE -vec-report
 intel: all
 
-intel-static: CC=icc
+intel-static: CC=icc -w
 intel-static: LDFLAGS=-lm -static
 intel-static: CFLAGS=-Wall -static -O3 -xHOST -ipo -D_FILE_OFFSET_BITS=64 -D_LARGE_FILE_SOURCE -vec-report
 intel-static: all
