@@ -22,17 +22,16 @@ To compile the GUI go to the main directory and type:
 ```
 make install-GUI
 ```
-*(Note that the GUI compilation may fail with some Python versions)*
-
 Automatically, some Python libraries are installed but the user must install the abc R package and the Cluster modules if desired:
 
-|Name	|Language	|Version|
+|Name	|Language	|Version |
 |---------------|---------------|---------------|
-|abc	|R	|All|
+|abc	|R	|All| |-|
 |Biopython	|Python	|All|
 |numpy	|Python	|All|
 |pandas	|Python	|All|
 |mpi4py	|Python	|Cluster|
+|PyInstaller	|Python	|GUI|
 
 
 ## Main commands to execute
