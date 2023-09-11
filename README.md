@@ -70,7 +70,7 @@ make install-GUI
 ```
 Next, the user must execute the GUI:
 ```
-Go to the "Executable" folder and clik the executable file
+Go to the "Executable" folder (created after GUI compilation) and clik the executable file
 ```
 
 or
