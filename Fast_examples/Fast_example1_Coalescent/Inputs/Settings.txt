@@ -46,7 +46,7 @@
 *NumberOfSimulations=1000
 
 # Number of available processors to run the simulations in parallel (1 in case of running without parallelization). See documentation for details -- MANDATORY --
-*NumberOfProcessors=12
+*NumberOfProcessors=1
 
 # Save simulated data. We recommend do not save the simulated data because it requires a lot of space -- MANDATORY --
 *SaveSimulations=No
