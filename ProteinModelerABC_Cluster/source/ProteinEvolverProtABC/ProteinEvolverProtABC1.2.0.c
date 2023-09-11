@@ -805,13 +805,13 @@ int main(int argc, char **argv)
 {
 	int			dataSetNum, i, k, j, w, sum, pass, sorted, mmm;
 	long int	seed, seedFirst, originalSeed;
-	double		a, b, a2;
+	double		a, /*b,*/ a2;
 	float 		start, secs;
 	char		File[80];
 	char		dir[80], dirStability[80];
 	char		*MRCAsequence;				/* this array will contain the MRCA sequence from inputFile */
 	double		*fragmentTMRCAfraction;		/* this array will have the TMRCA of the agments */
-	double		specMigPropPopul;
+	//double		specMigPropPopul;
 	char		ch;
 	FILE 		*fp;
 	// struct 		timeb tmb; // Miguel (removing warning)
@@ -899,8 +899,8 @@ int main(int argc, char **argv)
 	freqNumber = 4;
 	doCountsForExpNumRec = YES;		
 	i = k = 0;
-    b = 1.0 * 0.0; // = 0
-	specMigPropPopul = 0.0;
+    // b = 1.0 * 0.0; // Miguel removing warning
+	//specMigPropPopul = 0.0;
 	Nscaling = 2; /* controls the scaling of time in Nscaling generations 1=haploids 2=diploids */
 	numNodes = 0;
 	BBmodelNumber = -1;
@@ -4111,7 +4111,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 	double		*rateREpartial, *rateCApartial, *rateMIGpartial, *ratePartial, *cumPopulTase;
 	int			currentSample, saveThis;	
 	int			doBreakpBroken, LeftLess, LeftHigh, RightLess, RightHigh, LeftLess2, RightHigh2, mmm, stateHere_P, stateHere_Q, sigue, Ok_SMRCA_Codon, AncGMRCA_obtained;
-	int			/*controlConvSTST1,*/ summConvSTST1, controlConvSTST2, summConvSTST2, OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;
+	int			/*controlConvSTST1, summConvSTST1, controlConvSTST2, summConvSTST2,*/ OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;
 	double		currentMigrationRate;
 
 	
@@ -4151,7 +4151,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 	mmm = sigue = Ok_SMRCA_Codon = 0;
 	AncGMRCA_obtained = NO;
 	overFirst = overEnd = sizeNode_p = sizeNode_q = sizeNode = out = numActNodex = many = c = 0;
-	/*controlConvSTST1 =*/ summConvSTST1 = controlConvSTST2 = summConvSTST2 = newOkValueCI = 0;
+	/*controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = */ newOkValueCI = 0;
 	OkValueCI = 1;
 
 	currentDemesNumber = numPopulations;
@@ -6377,7 +6377,7 @@ void MakeCoalescenceTree (int numSequences, int numSites, int numNuc, int N, dou
 						}
 					else if (doMigrationSTST == YES) /* migrations go only to close neighboring demes */ /* MIGUEL */
 						{
-						/*controlConvSTST1 =*/ summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0;
+						/*controlConvSTST1 = summConvSTST1 = controlConvSTST2 =  summConvSTST2 = 0; */
 
 						for (k = 1; k <= numPopulations+currentBigDeme; k++)
 							{
@@ -10187,7 +10187,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 	double		*rateREpartial, *rateCApartial, *rateMIGpartial, *ratePartial, *cumPopulTase;
 	int			currentSample, saveThis;	
 	int			doBreakpBroken, LeftLess, LeftHigh, RightLess, RightHigh, LeftLess2, RightHigh2, mmm, stateHere_P, stateHere_Q, sigue, Ok_SMRCA_Codon, AncGMRCA_obtained;
-	int			/*controlConvSTST1,*/ summConvSTST1, controlConvSTST2, summConvSTST2, OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;
+	int			/*controlConvSTST1, summConvSTST1, controlConvSTST2, summConvSTST2, */ OkValue, OkValue1, OkValue2, OkValueCI, newOkValueCI;
 	double		currentMigrationRate;
 	int 		cuantos;
 	double		RdValue;
@@ -10234,7 +10234,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 	mmm = sigue = Ok_SMRCA_Codon = 0;
 	AncGMRCA_obtained = NO;
 	overFirst = overEnd = sizeNode_p = sizeNode_q = sizeNode = out = numActNodex = many = c = 0;
-	/*controlConvSTST1 = */summConvSTST1 = controlConvSTST2 = summConvSTST2 = newOkValueCI = 0;
+	/*controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = */ newOkValueCI = 0;
 	OkValueCI = 1;
 	printRecPDF = NO;
 	giBegin = giEnd = 0;
@@ -12649,7 +12649,7 @@ void MakeCoalescenceTreeHotspotRec (int numSequences, int numSites, int numNuc, 
 						}
 					else if (doMigrationSTST == YES) /* migrations go only to close neighboring demes */ /* MIGUEL */
 						{
-						/*controlConvSTST1 =*/ summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0;
+						/*controlConvSTST1 = summConvSTST1 = controlConvSTST2 = summConvSTST2 = 0; */
 
 						for (k = 1; k <= numPopulations+currentBigDeme; k++)
 							{
@@ -28849,9 +28849,9 @@ int Get_pdb(struct protein *prot, short **aa_seq, char *file, char *chain)
   prot->length=nres;
 
   // File name
-  char pdbid[200];
+  char pdbid[201];
   GetPdbId(file, pdbid); if(*chain==' ')*chain='_';
-  /*fprintf (fpmpi,"PDB %s chain %c nres=%d\n",pdbid,*chain,nres);*/
+  //fprintf (fpmpi,"PDB %s chain %c nres=%d\n",pdbid,*chain,nres); // MMM
   sprintf(prot->name, "%s%c", pdbid, *chain);
 
   // Sequence
@@ -29302,15 +29302,16 @@ float Print_DG_REM3_NoPrint (double E_nat, double E1, double E2,
 
 float Compute_Tfreeze_3(float K2, float K3, float SC)
 {
-  if(K3>0)return(0);
-  float T=sqrt(K2/SC), /*T_new,*/ f, f1; // Miguel (removing warning)
+  if(K3>0) return(0);
+  float T=sqrt(K2/SC); /*T_new, f , f1; */ // Miguel (removing warning)
+  /*float f, f1; // Miguel (removing warning)
   int it;
   for(it=0; it<20; it++){
     f=SC*T*T*T-K2*T+2*K3;
     if(fabs(f)<0.0001)break;
     f1=3*SC*T*T-K2;
     //T_new=T-f/f1; // Miguel (removing warning)
-  }
+  }*/
   return(T); 
 }
 
@@ -31446,7 +31447,7 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
 
   short i_atom=0, alternative=0;
   int hetatm=0, hetatm_old=0/*, label=0*/;
-  int i, j, res_num, res_num_old=10000;
+  int /*i,*/ j, res_num, res_num_old=10000;
   char altloc, altloc_sel=' '/*, altalt='\0'*/;
   char chain_old='#', chain=' ';
   char res_type[5], res_type_old[5], icode=' ', icode_old='#';
@@ -47343,10 +47344,10 @@ static void	PrintRunSettings (FILE *filep, long int seed)
 static void	PrintRunSettings_userTrees (FILE *filep, long int seed)
 	{
 		int i, j;
-		double /*stdErrorErep,*/ stdErrGMRCA, stdErrTrep;
+		// double /*stdErrorErep, stdErrGMRCA,*/ stdErrTrep;
 
 		
-		/*stdErrorErep =*/ stdErrGMRCA = stdErrTrep = 0.0; // Miguel (removing warning)
+		// /*stdErrorErep = stdErrGMRCA = */ stdErrTrep = 0.0; // Miguel (removing warning)
 
 		/* Anadido Miguel: Para que escriba por la pantalla del master */
 		#ifdef MPI
