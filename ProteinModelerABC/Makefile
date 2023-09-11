@@ -58,6 +58,7 @@ install:
 	@echo ""
 
 install-GUI:
+	@pip3 install PyInstaller
 	@echo "Creating Excutable folder ..."
 	@mkdir ./GUI/Executable
 	@echo "Done!"

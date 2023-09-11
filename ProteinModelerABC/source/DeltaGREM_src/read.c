@@ -46,7 +46,7 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
 
   short i_atom=0, alternative=0;
   int hetatm=0, hetatm_old=0;
-  int i, res_num, res_num_old=10000;
+  int /*i,*/ res_num, res_num_old=10000; // Miguel (removing warning)
   char altloc, altloc_sel=' ';
   char chain_old='#', old_chain='#', chain='Z';
   char res_type[5], res_type_old[5], icode=0, icode_old;
@@ -95,7 +95,8 @@ int Read_coord(char *pdb_name, int *nmr, struct residue *seq, atom *atoms,
     // Miguel (removing warnings)
     /*for(i=0; i<nchain; i++)*//*printf("%c", chain_to_read[i]);*/
     /*printf("");*/
-    i = nchain;
+    /*i = 0;
+    i = nchain;*/ // Miguel
   }
 
   *nmr=0;
