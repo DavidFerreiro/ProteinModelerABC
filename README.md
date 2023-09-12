@@ -16,7 +16,7 @@ To compile the program go to the main directory (which must contain all the file
 ```
 make install
 ```
-*(Compilation tested using 9.3.0 GNU Fortran (GCC) version)*
+*(Compilation tested using 9.3.0 GNU Fortran (GCC) version, the compiler should include the library "libg2c")*
 
 To compile the GUI go to the main directory and type:
 ```
