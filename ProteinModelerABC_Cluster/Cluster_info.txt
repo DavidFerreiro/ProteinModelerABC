@@ -1,0 +1,8 @@
+### Cluster information
+
+SCHE = Slurm				# e.g. Slurm, PBS Pro
+NODES = 1				# Nodes. Processors are specified in Settings.txt file
+MEM = 100GB				# Memmory
+TIME = 01:00:00				# Time
+MOD = module load cesga/2020 gcc/system openmpi/4.0.5_ft3 mpi4py/3.0.3				# Modules (User must write the command to load them)
+
