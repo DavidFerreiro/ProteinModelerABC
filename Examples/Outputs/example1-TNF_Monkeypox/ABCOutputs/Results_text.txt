@@ -1,0 +1,63 @@
+Model selection with abc - cross validation - based on 100 samples
+Confusion matrix based on 100 samples for each model.
+
+$tol0.005
+        Fitness HIVw Neutral
+Fitness      79    7      14
+HIVw          6   90       4
+Neutral       4    1      95
+
+
+Mean model posterior probabilities (rejection)
+
+$tol0.005
+        Fitness   HIVw Neutral
+Fitness  0.7251 0.1339  0.1409
+HIVw     0.0700 0.8964  0.0336
+Neutral  0.1446 0.0433  0.8121
+
+
+
+
+Model selection with abc - Real data
+Estimation – Posterior probability of every substitution model (rejection):
+Fitness    HIVw Neutral 
+ 0.2200  0.0067  0.7733 
+
+
+
+Goodness of fit of Real data
+
+   -Fitness:
+$pvalue
+[1] 0.28
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.053   3.510   3.822   4.599   4.467  16.273 
+
+$dist.obs
+[1] 4.410731
+
+   -HIVw:
+$pvalue
+[1] 0.28
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.308   3.573   3.869   4.863   4.897  18.443 
+
+$dist.obs
+[1] 4.715461
+
+   -Neutral:
+$pvalue
+[1] 0.26
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.236   3.554   3.833   4.569   4.550  13.664 
+
+$dist.obs
+[1] 4.544631
+

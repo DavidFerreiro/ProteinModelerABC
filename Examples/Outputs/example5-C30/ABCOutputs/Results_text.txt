@@ -1,0 +1,63 @@
+Model selection with abc - cross validation - based on 100 samples
+Confusion matrix based on 100 samples for each model.
+
+$tol0.005
+        Fitness LG Neutral
+Fitness      79 18       3
+LG            8 86       6
+Neutral       1  8      91
+
+
+Mean model posterior probabilities (rejection)
+
+$tol0.005
+        Fitness     LG Neutral
+Fitness  0.7581 0.1960  0.0459
+LG       0.1487 0.7763  0.0750
+Neutral  0.0561 0.0701  0.8738
+
+
+
+
+Model selection with abc - Real data
+Estimation – Posterior probability of every substitution model (rejection):
+Fitness      LG Neutral 
+ 0.9467  0.0000  0.0533 
+
+
+
+Goodness of fit of Real data
+
+   -Fitness:
+$pvalue
+[1] 0.26
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  4.089   4.349   4.573   6.292   5.327  54.644 
+
+$dist.obs
+[1] 5.234002
+
+   -LG:
+$pvalue
+[1] 0.33
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.634   3.868   4.144   4.673   4.715  12.740 
+
+$dist.obs
+[1] 4.477003
+
+   -Neutral:
+$pvalue
+[1] 0.09
+
+$s.dist.sim
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.543   3.776   4.117   5.187   4.986  21.927 
+
+$dist.obs
+[1] 7.945493
+
