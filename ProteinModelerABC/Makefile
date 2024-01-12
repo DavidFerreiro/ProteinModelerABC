@@ -50,7 +50,8 @@ install:
 	@pip3 install Biopython
 	@pip3 install numpy
 	@pip3 install pandas
-	@echo "Succesfull intallation of Python libraries: Biopython, numpy and pandas"
+	@pip3 install matplotlib
+	@echo "Succesfull intallation of Python libraries: Biopython, numpy, pandas and matplotlib"
 	@echo "If any additional library is required the user should type:"
 	@echo "pip install library_name"
 	@echo "Note that R will require abc package"
@@ -59,7 +60,6 @@ install:
 	@echo "See the documentation for additional details about $(PROGRAM_NAME) and for cluster version information"
 	@echo "Compilation completed!"
 	@echo ""
-	@export PATH=$PATH:$CURRENT_DIR/bin
 
 install-GUI:
 	@pip3 install PyInstaller
