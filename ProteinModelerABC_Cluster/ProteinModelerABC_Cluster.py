@@ -2,8 +2,8 @@ import os
 import sys
 
 #Bin PATH
-sys.path.append('/Users/DavidFerreiro/Desktop/ProteinModelerABC.v1.1/Cluster_F')
-ROOT = "'/Users/DavidFerreiro/Desktop/ProteinModelerABC.v1.1/Cluster_F'"
+sys.path.append('')
+ROOT = ""
 
 import bin.Scripts.Variables
 import bin.Scripts.ReadSettings
