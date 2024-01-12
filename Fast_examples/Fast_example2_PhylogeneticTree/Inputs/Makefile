@@ -26,7 +26,7 @@ install:
 	@echo "Done!"
 	@echo "Copying Scripts folder ..."
 	@cp -r source/Scripts ./bin
-	@python bin/Scripts/Route.py $(CURDIR)
+	@python3 bin/Scripts/Route.py $(CURDIR)
 	@rm bin/Scripts/Route.py
 	@echo "Done!"
 	@echo "Compiling DeltaGREM ..."
