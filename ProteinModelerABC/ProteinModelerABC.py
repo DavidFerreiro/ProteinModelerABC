@@ -8,7 +8,7 @@ import time
 import csv
 
 #Bin PATH
-sys.path.append("/Users/DavidFerreiro/Desktop/ProteinModelerABC.v1.1/Archive/Local")
+sys.path.append("")
 
 import bin.Scripts.Variables
 import bin.Scripts.ReadSettings
