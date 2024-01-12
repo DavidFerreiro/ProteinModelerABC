@@ -47,7 +47,7 @@ python3 ProteinModelerABC_GUI.py
 ```
 python3 ProteinModelerABC_Cluster.py
 ```
-And next execute "*launch_Simu.sh*" file:
+And next execute "*launch_PMABC.sh*" file:
 ```
 sbatch launch_Simu.sh
 ```
