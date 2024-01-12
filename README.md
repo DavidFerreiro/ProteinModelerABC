@@ -30,11 +30,13 @@ Automatically, some Python libraries are installed but the user must install the
 |Biopython	|Python	|All|
 |numpy	|Python	|All|
 |pandas	|Python	|All|
+|matplotlib	|Python	|All|
 |mpi4py	|Python	|Cluster|
 |PyInstaller	|Python	|GUI|
 
 
 ## Main commands to execute
+An analysis can be executed from anywhere just placing there the main executable file after compilation (ProteinModelerABC.py) and all the corresponding input files (including structures.in).
 1. To run it on command line you should type:
 ```
 python3 ProteinModelerABC.py
@@ -49,7 +51,7 @@ python3 ProteinModelerABC_Cluster.py
 ```
 And next execute "*launch_PMABC.sh*" file:
 ```
-sbatch launch_Simu.sh
+sbatch launch_PMABC.sh
 ```
 ## Fast examples ready to be run on local computer
 The [first Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example1_Coalescent), [second Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example2_PhylogeneticTree) and [third_Fast-example](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Fast_examples/Fast_example3_ABCModels) are almost ready to be run. The user should go to the corresponding *Input* directory and:
