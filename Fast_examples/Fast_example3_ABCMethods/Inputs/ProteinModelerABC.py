@@ -576,9 +576,9 @@ if __name__ == "__main__":
                      " ______                              _ \n"
                      "|  ____|                            | |\n"
                      "| |__     _ __   _ __   ___    _ __ | |\n"
-                     "|  __|   | '__| | '__| / _ \  | '__|| |\n"
-                     "| |____  | |    | |   | (_) | | |   |_|\n"
-                     "|______| |_|    |_|    \___/  |_|   (_)\n\n"
+                     "|  __|   | '__| | '__| | _ |  | '__|| |\n"
+                     "| |____  | |    | |    |(_)|  | |   |_|\n"
+                     "|______| |_|    |_|    |___|  |_|   (_)\n\n"
 
 
                      "But dont panic!! You dont have to repeat everything, just go to the ./ABCOutputs and re execute ABCAnalysis.r file increasing the tolerance or changing the ABC method to rejection. Check manual for further information\n")
@@ -587,9 +587,9 @@ if __name__ == "__main__":
                      " ______                              _ \n"
                      "|  ____|                            | |\n"
                      "| |__     _ __   _ __   ___    _ __ | |\n"
-                     "|  __|   | '__| | '__| / _ \  | '__|| |\n"
-                     "| |____  | |    | |   | (_) | | |   |_|\n"
-                     "|______| |_|    |_|    \___/  |_|   (_)\n\n"
+                     "|  __|   | '__| | '__| | _ |  | '__|| |\n"
+                     "| |____  | |    | |    |(_)|  | |   |_|\n"
+                     "|______| |_|    |_|    |___|  |_|   (_)\n\n"
 
 
                      "But dont panic!! You dont have to repeat everything, just go to the ./ABCOutputs and re execute ABCAnalysis.r file increasing the tolerance or changing the ABC method to rejection. Check manual for further information\n")
