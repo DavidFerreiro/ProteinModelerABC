@@ -495,7 +495,6 @@ if __name__ == "__main__":
         os.system('rm -r ./Simulations')
 
     os.system('rm -r ./Results')
-    os.system('rm -r ./bin/Scripts/__pycache__')
     os.system('rm newalignment.fasta')
     os.system('rm Local_interactions.dat')
     os.system('rm REM.txt')
