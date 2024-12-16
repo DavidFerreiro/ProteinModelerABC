@@ -1,10 +1,18 @@
 # *ProteinModelerABC*
 *ProteinModelerABC* is an evolutionary framework to estimate the best-fitting substitution model of protein evolution, among a set of complex substitution models that cannot be accommodated in likelihood functions, with approximate Bayesian computation (ABC). *ProteinModelerABC* can be run using the terminal or a graphical users interface in LinuxOS or MacOS siystems or in computer clusters based on LinuxOS.
 
+*Reference*
+When using roteinModelerABC, please cite [this paper](https://doi.org/10.1093/bioinformatics/btae096):
+
+Ferreiro D, Branco C, Arenas M. 2024. Selection among site-dependent structurally constrained substitution models of protein evolution by approximate Bayesian computation. Bioinformatics, 40, 3, btae096. [https://doi.org/10.1093/bioinformatics/btae096](https://doi.org/10.1093/bioinformatics/btae096).
+
+*Acknowledgments*
 This work was supported by the Spanish Ministry of Science and Innovation through the Grant [PID2019-107931GA-I00/AEI/10.13039/501100011033]. D.F. was funded by a fellowship from the Xunta de Galicia [ED481A-2020/192]. 
 
-## Documentation
+## Documentation and Support
 For more information about using *ProteinModelerABC*, a manual is [attached](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/Documentation).
+
+If still in doubt, please do not hesitate to contact us (ferreirogarciadavid@gmail.com) for any question.
 
 ## Download
 Click here to download the [computer](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC) or [cluster](https://github.com/DavidFerreiro/ProteinModelerABC/tree/main/ProteinModelerABC_Cluster) version
