@@ -3,7 +3,7 @@
 
 ## Reference
 
-When using roteinModelerABC, please cite [this paper](https://doi.org/10.1093/bioinformatics/btae096):
+When using ProteinModelerABC, cite:
 
 Ferreiro D, Branco C, Arenas M. 2024. Selection among site-dependent structurally constrained substitution models of protein evolution by approximate Bayesian computation. Bioinformatics, 40, 3, btae096. [https://doi.org/10.1093/bioinformatics/btae096](https://doi.org/10.1093/bioinformatics/btae096).
 
